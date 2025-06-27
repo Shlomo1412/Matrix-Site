@@ -337,114 +337,103 @@
 <body>
     <!-- Back to Top Button -->
     <button id="backToTopBtn" aria-label="Back to top" style="display:none;position:fixed;bottom:32px;right:32px;z-index:999;background:#0078d7;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.7em;box-shadow:0 2px 16px #0078d799;cursor:pointer;transition:background 0.18s;">↑</button>
-    <!-- Breadcrumb Navigation -->
-    <nav class="breadcrumb-nav" aria-label="Breadcrumb" style="margin:0 auto;max-width:1500px;padding:18px 38px 0 38px;font-size:1em;color:#7ecbff;">
-        <span id="breadcrumbTrail">Docs</span>
-    </nav>
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Open navigation">☰ Menu</button>
-    <!-- Sidebar Search/Filter -->
-    <div class="sidebar-search-container" style="padding:0 18px 8px 18px;">
-        <input id="sidebarSearch" type="text" placeholder="Filter API methods..." style="width:100%;padding:7px 10px;border-radius:6px;border:1px solid #23293a;background:#23293a;color:#7ecbff;font-size:1em;outline:none;" />
-    </div>
+    <!-- Breadcrumb Navigation (no Docs text, no old Back to Home) -->
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb" style="margin:0 auto;max-width:1500px;padding:18px 38px 0 38px;font-size:1em;color:#7ecbff;display:none;"></nav>
     <div class="drmod-header">
-            <h1>DrMod Documentation</h1>
-            <p>.NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
+        <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+            <h1 style="margin:0;">DrMod Documentation</h1>
         </div>
-        <div class="drmod-layout">
-            <aside class="drmod-sidebar" id="sidebarNav">
-                <nav>
-                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-features"><span class="arrow">▶</span> Features</button>
-                    <div class="sidebar-expander-links" id="expander-features">
-                        <a href="#features">Features</a>
-                    </div>
-                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-installation"><span class="arrow">▶</span> Installation</button>
-                    <div class="sidebar-expander-links" id="expander-installation">
-                        <a href="#installation">Installation</a>
-                    </div>
-                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-usage"><span class="arrow">▶</span> Usage</button>
-                    <div class="sidebar-expander-links" id="expander-usage">
-                        <a href="#usage">Usage</a>
-                    </div>
-                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-api"><span class="arrow">▶</span> API</button>
-                    <div class="sidebar-expander-links" id="expander-api">
-                        <a href="#api">API Reference</a>
-                        <a href="#GetRequiredJavaVersion">GetRequiredJavaVersion</a>
-                        <a href="#FindRequiredJavaVersion">FindRequiredJavaVersion</a>
-                        <a href="#ReadModMetadata">ReadModMetadata</a>
-                        <a href="#ReadAllModMetadataInFolder">ReadAllModMetadataInFolder</a>
-                        <a href="#ValidateMod">ValidateMod</a>
-                        <a href="#ValidateModsFolder">ValidateModsFolder</a>
-                        <a href="#IsCompatible">IsCompatible</a>
-                        <a href="#DetectConflicts">DetectConflicts</a>
-                        <a href="#DetectIncompatibilities">DetectIncompatibilities</a>
-                        <a href="#GetRequiredDependencies">GetRequiredDependencies</a>
-                        <a href="#GetOptionalDependencies">GetOptionalDependencies</a>
-                        <a href="#GetIncompatibilities">GetIncompatibilities</a>
-                        <a href="#GetAllDependencies">GetAllDependencies</a>
-                        <a href="#GetDependents">GetDependents</a>
-                        <a href="#GetModsWithMissingDependencies">GetModsWithMissingDependencies</a>
-                        <a href="#GetModById">GetModById</a>
-                        <a href="#GetModVersion">GetModVersion</a>
-                        <a href="#GetModFileName">GetModFileName</a>
-                        <a href="#GetModSummary">GetModSummary</a>
-                        <a href="#GetModsByLoader">GetModsByLoader</a>
-                        <a href="#GetModsByMinecraftVersion">GetModsByMinecraftVersion</a>
-                        <a href="#ResolveCrashReport">ResolveCrashReport</a>
-                    </div>
-                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-license"><span class="arrow">▶</span> License</button>
-                    <div class="sidebar-expander-links" id="expander-license">
-                        <a href="#license">License</a>
-                    </div>
-                </nav>
-            </aside>
-            <div class="drmod-content">
-                <div class="section-divider"></div>
-                <div class="section" id="features">
-            <h2>Features</h2>
-            <ul>
-                <li>Cross-loader support: Forge, NeoForge, Fabric, Quilt</li>
-                <li>Read mod metadata from JARs or metadata files</li>
-                <li>Detect required/optional dependencies and incompatibilities</li>
-                <li>Validate mods and mod folders</li>
-                <li>Detect duplicate/conflicting/incompatible mods</li>
-                <li>Analyze crash reports to identify problematic mods</li>
-                <li>Query mods by loader, Minecraft version, dependencies, and more</li>
-            </ul>
-        </div>
-        <div class="section-divider"></div>
-        <div class="section" id="installation">
-            <h2>Installation</h2>
-            <p>Add the DrMod project to your solution or reference the DLL. Target .NET 8 or later.</p>
-        </div>
-        <div class="section-divider"></div>
-        <div class="section" id="usage">
-            <h2>Usage</h2>
-            <h3>Creating an Analyzer</h3>
-            <pre><code>using DrMod;
+        <p>.NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
+    </div>
+    <div class="drmod-layout">
+        <aside class="drmod-sidebar" id="sidebarNav">
+            <div class="sidebar-search-container" style="padding:0 18px 8px 18px;">
+                <input id="sidebarSearch" type="text" placeholder="Filter API methods..." style="width:100%;padding:7px 10px;border-radius:6px;border:1px solid #23293a;background:#23293a;color:#7ecbff;font-size:1em;outline:none;" />
+            </div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#installation">Installation</a>
+                <a href="#usage">Usage</a>
+                <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-api"><span class="arrow">▶</span> API</button>
+                <div class="sidebar-expander-links" id="expander-api">
+                    <a href="#api">API Reference</a>
+                    <a href="#GetRequiredJavaVersion">GetRequiredJavaVersion</a>
+                    <a href="#FindRequiredJavaVersion">FindRequiredJavaVersion</a>
+                    <a href="#ReadModMetadata">ReadModMetadata</a>
+                    <a href="#ReadAllModMetadataInFolder">ReadAllModMetadataInFolder</a>
+                    <a href="#ValidateMod">ValidateMod</a>
+                    <a href="#ValidateModsFolder">ValidateModsFolder</a>
+                    <a href="#IsCompatible">IsCompatible</a>
+                    <a href="#DetectConflicts">DetectConflicts</a>
+                    <a href="#DetectIncompatibilities">DetectIncompatibilities</a>
+                    <a href="#GetRequiredDependencies">GetRequiredDependencies</a>
+                    <a href="#GetOptionalDependencies">GetOptionalDependencies</a>
+                    <a href="#GetIncompatibilities">GetIncompatibilities</a>
+                    <a href="#GetAllDependencies">GetAllDependencies</a>
+                    <a href="#GetDependents">GetDependents</a>
+                    <a href="#GetModsWithMissingDependencies">GetModsWithMissingDependencies</a>
+                    <a href="#GetModById">GetModById</a>
+                    <a href="#GetModVersion">GetModVersion</a>
+                    <a href="#GetModFileName">GetModFileName</a>
+                    <a href="#GetModSummary">GetModSummary</a>
+                    <a href="#GetModsByLoader">GetModsByLoader</a>
+                    <a href="#GetModsByMinecraftVersion">GetModsByMinecraftVersion</a>
+                    <a href="#ResolveCrashReport">ResolveCrashReport</a>
+                </div>
+                <a href="#license">License</a>
+            </nav>
+            <div style="flex:1 1 auto;"></div>
+            <div style="padding:24px 0 0 0;display:flex;justify-content:center;">
+                <a href="index.html" class="back-home-btn" style="background:#23293a;color:#7ecbff;padding:7px 18px;border-radius:7px;font-weight:600;text-decoration:none;transition:background 0.18s;">← Back to Home</a>
+            </div>
+        </aside>
+        <div class="drmod-content">
+            <div class="section-divider"></div>
+            <div class="section" id="features">
+        <h2>Features</h2>
+        <ul>
+            <li>Cross-loader support: Forge, NeoForge, Fabric, Quilt</li>
+            <li>Read mod metadata from JARs or metadata files</li>
+            <li>Detect required/optional dependencies and incompatibilities</li>
+            <li>Validate mods and mod folders</li>
+            <li>Detect duplicate/conflicting/incompatible mods</li>
+            <li>Analyze crash reports to identify problematic mods</li>
+            <li>Query mods by loader, Minecraft version, dependencies, and more</li>
+        </ul>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section" id="installation">
+        <h2>Installation</h2>
+        <p>Add the DrMod project to your solution or reference the DLL. Target .NET 8 or later.</p>
+    </div>
+    <div class="section-divider"></div>
+    <div class="section" id="usage">
+        <h2>Usage</h2>
+        <h3>Creating an Analyzer</h3>
+        <pre><code>using DrMod;
 
 var analyzer = new DrMod();
 </code></pre>
-        </div>
-        <div class="section-divider"></div>
-        <div class="section" id="api">
-            <h2>API Reference with Examples</h2>
-            <h3 id="GetRequiredJavaVersion">GetRequiredJavaVersion(string modPath)</h3>
-            <p>Get the required Java version for a mod (e.g., 8, 17, 21).</p>
-            <pre><code>var javaVersion = analyzer.GetRequiredJavaVersion(@"C:\mods\jei.jar");
+    </div>
+    <div class="section-divider"></div>
+    <div class="section" id="api">
+        <h2>API Reference with Examples</h2>
+        <h3 id="GetRequiredJavaVersion">GetRequiredJavaVersion(string modPath)</h3>
+        <p>Get the required Java version for a mod (e.g., 8, 17, 21).</p>
+        <pre><code>var javaVersion = analyzer.GetRequiredJavaVersion(@"C:\mods\jei.jar");
 Console.WriteLine($"JEI requires Java {javaVersion}+");
 </code></pre>
-            <h3 id="FindRequiredJavaVersion">FindRequiredJavaVersion(string modPath)</h3>
-            <p>Get the required Java version for a mod (e.g., 8, 17, 21).</p>
-            <pre><code>var jdkPath = analyzer.FindRequiredJavaVersion(@"C:\mods\jei.jar");
+        <h3 id="FindRequiredJavaVersion">FindRequiredJavaVersion(string modPath)</h3>
+        <p>Get the required Java version for a mod (e.g., 8, 17, 21).</p>
+        <pre><code>var jdkPath = analyzer.FindRequiredJavaVersion(@"C:\mods\jei.jar");
 if (jdkPath != null)
     Console.WriteLine($"Found suitable JDK at: {jdkPath}");
 else
     Console.WriteLine("No suitable JDK found for this mod's requirements.");
 </code></pre>
-            <h3 id="ReadModMetadata">ReadModMetadata(string filePath)</h3>
-            <p>Read metadata from a mod JAR or metadata file.</p>
-            <pre><code>// Reading from a JAR file
+        <h3 id="ReadModMetadata">ReadModMetadata(string filePath)</h3>
+        <p>Read metadata from a mod JAR or metadata file.</p>
+        <pre><code>// Reading from a JAR file
 var metadata = analyzer.ReadModMetadata(@"C:\mods\jei-1.20.1-15.2.0.27.jar");
 if (metadata != null)
 {
@@ -458,9 +447,9 @@ if (metadata != null)
 var fabricMeta = analyzer.ReadModMetadata(@"C:\fabric.mod.json");
 var forgeMeta = analyzer.ReadModMetadata(@"C:\META-INF\mods.toml");
 </code></pre>
-            <h3 id="ReadAllModMetadataInFolder">ReadAllModMetadataInFolder(string folderPath)</h3>
-            <p>Read metadata for all mods in a folder.</p>
-            <pre><code>var allMods = analyzer.ReadAllModMetadataInFolder(@"C:\Minecraft\mods");
+        <h3 id="ReadAllModMetadataInFolder">ReadAllModMetadataInFolder(string folderPath)</h3>
+        <p>Read metadata for all mods in a folder.</p>
+        <pre><code>var allMods = analyzer.ReadAllModMetadataInFolder(@"C:\Minecraft\mods");
 Console.WriteLine($"Found {allMods.Count} mods:");
 
 foreach (var mod in allMods)
@@ -472,9 +461,9 @@ foreach (var mod in allMods)
 var forgeMods = allMods.Where(m => m.loader == "Forge").ToList();
 var fabricMods = allMods.Where(m => m.loader == "Fabric").ToList();
 </code></pre>
-            <h3 id="ValidateMod">ValidateMod(string modPath)</h3>
-            <p>Validate a single mod and return a list of errors.</p>
-            <pre><code>var errors = analyzer.ValidateMod(@"C:\mods\examplemod.jar");
+        <h3 id="ValidateMod">ValidateMod(string modPath)</h3>
+        <p>Validate a single mod and return a list of errors.</p>
+        <pre><code>var errors = analyzer.ValidateMod(@"C:\mods\examplemod.jar");
 
 if (errors.Count == 0)
 {
@@ -489,15 +478,15 @@ else
     }
 }
 </code></pre>
-            <div class="example-output">
+        <div class="example-output">
 ❌ Mod validation errors:<br>
 - Missing modId.<br>
 - Missing Minecraft version.<br>
 - Duplicate required dependency: forge
-            </div>
-            <h3 id="ValidateModsFolder">ValidateModsFolder(string folderPath)</h3>
-            <p>Validate all mods in a folder and detect folder-wide issues.</p>
-            <pre><code>var folderErrors = analyzer.ValidateModsFolder(@"C:\Minecraft\mods");
+        </div>
+        <h3 id="ValidateModsFolder">ValidateModsFolder(string folderPath)</h3>
+        <p>Validate all mods in a folder and detect folder-wide issues.</p>
+        <pre><code>var folderErrors = analyzer.ValidateModsFolder(@"C:\Minecraft\mods");
 
 if (folderErrors.Count == 0)
 {
@@ -512,16 +501,16 @@ else
     }
 }
 </code></pre>
-            <div class="example-output">
+        <div class="example-output">
 ❌ Found 3 issues:<br>
 [badmod.jar] Missing modId.<br>
 Duplicate modId detected: jei<br>
 Multiple Minecraft versions detected in mods folder: 1.20.1, 1.19.4<br>
 [modA] is incompatible with [modB]
-            </div>
-            <h3 id="IsCompatible">IsCompatible(string modPath, string mcVersion, string loader, string loaderVersion)</h3>
-            <p>Check if a mod is compatible with specific game/loader versions.</p>
-            <pre><code>// Check compatibility with specific versions
+        </div>
+        <h3 id="IsCompatible">IsCompatible(string modPath, string mcVersion, string loader, string loaderVersion)</h3>
+        <p>Check if a mod is compatible with specific game/loader versions.</p>
+        <pre><code>// Check compatibility with specific versions
 bool isCompatible = analyzer.IsCompatible(
     @"C:\mods\jei.jar",
     mcVersion: "1.20.1",
@@ -544,9 +533,9 @@ foreach (var mod in mods)
     Console.WriteLine($"{modName}: {(compatible ? "✅" : "❌")}");
 }
 </code></pre>
-            <h3 id="DetectConflicts">DetectConflicts(List&lt;string&gt; modPaths)</h3>
-            <p>Detect duplicate mod IDs in a list of mod files.</p>
-            <pre><code>var modFiles = Directory.GetFiles(@"C:\mods", "*.jar").ToList();
+        <h3 id="DetectConflicts">DetectConflicts(List&lt;string&gt; modPaths)</h3>
+        <p>Detect duplicate mod IDs in a list of mod files.</p>
+        <pre><code>var modFiles = Directory.GetFiles(@"C:\mods", "*.jar").ToList();
 var conflicts = analyzer.DetectConflicts(modFiles);
 
 if (conflicts.Count > 0)
@@ -568,9 +557,9 @@ if (conflicts.Count > 0)
     }
 }
 </code></pre>
-            <h3 id="DetectIncompatibilities">DetectIncompatibilities(List&lt;string&gt; modPaths)</h3>
-            <p>Detect explicit incompatibilities between mods.</p>
-            <pre><code>var modFiles = Directory.GetFiles(@"C:\mods", "*.jar").ToList();
+        <h3 id="DetectIncompatibilities">DetectIncompatibilities(List&lt;string&gt; modPaths)</h3>
+        <p>Detect explicit incompatibilities between mods.</p>
+        <pre><code>var modFiles = Directory.GetFiles(@"C:\mods", "*.jar").ToList();
 var incompatibilities = analyzer.DetectIncompatibilities(modFiles);
 
 if (incompatibilities.Count > 0)
@@ -583,9 +572,9 @@ if (incompatibilities.Count > 0)
     Console.WriteLine("\n💡 Consider removing one mod from each incompatible pair.");
 }
 </code></pre>
-            <h3 id="GetRequiredDependencies">GetRequiredDependencies(string modPath)</h3>
-            <p>Get required dependencies for a mod.</p>
-            <pre><code>var requiredDeps = analyzer.GetRequiredDependencies(@"C:\mods\jei.jar");
+        <h3 id="GetRequiredDependencies">GetRequiredDependencies(string modPath)</h3>
+        <p>Get required dependencies for a mod.</p>
+        <pre><code>var requiredDeps = analyzer.GetRequiredDependencies(@"C:\mods\jei.jar");
 
 Console.WriteLine("Required dependencies:");
 foreach (var dep in requiredDeps)
@@ -593,14 +582,14 @@ foreach (var dep in requiredDeps)
     Console.WriteLine($"  - {dep}");
 }
 </code></pre>
-            <div class="example-output">
+        <div class="example-output">
 Required dependencies:<br>
 - forge<br>
 - minecraft
-            </div>
-            <h3 id="GetOptionalDependencies">GetOptionalDependencies(string modPath)</h3>
-            <p>Get optional dependencies for a mod.</p>
-            <pre><code>var optionalDeps = analyzer.GetOptionalDependencies(@"C:\mods\jei.jar");
+        </div>
+        <h3 id="GetOptionalDependencies">GetOptionalDependencies(string modPath)</h3>
+        <p>Get optional dependencies for a mod.</p>
+        <pre><code>var optionalDeps = analyzer.GetOptionalDependencies(@"C:\mods\jei.jar");
 
 Console.WriteLine("Optional dependencies:");
 foreach (var dep in optionalDeps)
@@ -608,9 +597,9 @@ foreach (var dep in optionalDeps)
     Console.WriteLine($"  - {dep}");
 }
 </code></pre>
-            <h3 id="GetIncompatibilities">GetIncompatibilities(string modPath)</h3>
-            <p>Get explicit incompatibilities for a mod.</p>
-            <pre><code>var incompatibilities = analyzer.GetIncompatibilities(@"C:\mods\optifine.jar");
+        <h3 id="GetIncompatibilities">GetIncompatibilities(string modPath)</h3>
+        <p>Get explicit incompatibilities for a mod.</p>
+        <pre><code>var incompatibilities = analyzer.GetIncompatibilities(@"C:\mods\optifine.jar");
 
 if (incompatibilities.Count > 0)
 {
@@ -621,9 +610,9 @@ if (incompatibilities.Count > 0)
     }
 }
 </code></pre>
-            <h3 id="GetAllDependencies">GetAllDependencies(string modPath, bool includeOptional = false)</h3>
-            <p>Recursively get all (transitive) dependencies for a mod.</p>
-            <pre><code>// Get only required dependencies (including transitive)
+        <h3 id="GetAllDependencies">GetAllDependencies(string modPath, bool includeOptional = false)</h3>
+        <p>Recursively get all (transitive) dependencies for a mod.</p>
+        <pre><code>// Get only required dependencies (including transitive)
 var allRequired = analyzer.GetAllDependencies(@"C:\mods\complexmod.jar", false);
 
 // Get all dependencies including optional ones
@@ -638,9 +627,9 @@ foreach (var dep in allDeps)
     Console.WriteLine($"  - {dep}");
 }
 </code></pre>
-            <h3 id="GetDependents">GetDependents(string modId, string folderPath)</h3>
-            <p>Get all mods that depend on a given mod.</p>
-            <pre><code>var dependents = analyzer.GetDependents("jei", @"C:\mods");
+        <h3 id="GetDependents">GetDependents(string modId, string folderPath)</h3>
+        <p>Get all mods that depend on a given mod.</p>
+        <pre><code>var dependents = analyzer.GetDependents("jei", @"C:\mods");
 
 Console.WriteLine($"Mods that depend on JEI ({dependents.Count}):");
 foreach (var dependent in dependents)
@@ -654,9 +643,9 @@ if (dependents.Count > 0)
     Console.WriteLine($"\n⚠️ Removing JEI will affect {dependents.Count} other mods!");
 }
 </code></pre>
-            <h3 id="GetModsWithMissingDependencies">GetModsWithMissingDependencies(string folderPath)</h3>
-            <p>Get mods that have missing required dependencies.</p>
-            <pre><code>var modsWithMissingDeps = analyzer.GetModsWithMissingDependencies(@"C:\mods");
+        <h3 id="GetModsWithMissingDependencies">GetModsWithMissingDependencies(string folderPath)</h3>
+        <p>Get mods that have missing required dependencies.</p>
+        <pre><code>var modsWithMissingDeps = analyzer.GetModsWithMissingDependencies(@"C:\mods");
 
 if (modsWithMissingDeps.Count > 0)
 {
@@ -680,9 +669,9 @@ if (modsWithMissingDeps.Count > 0)
     }
 }
 </code></pre>
-            <h3 id="GetModById">GetModById(string modId, string folderPath)</h3>
-            <p>Get metadata for a mod by its ID.</p>
-            <pre><code>var jeiMeta = analyzer.GetModById("jei", @"C:\mods");
+        <h3 id="GetModById">GetModById(string modId, string folderPath)</h3>
+        <p>Get metadata for a mod by its ID.</p>
+        <pre><code>var jeiMeta = analyzer.GetModById("jei", @"C:\mods");
 
 if (jeiMeta != null)
 {
@@ -694,9 +683,9 @@ else
     Console.WriteLine("JEI not found in mods folder");
 }
 </code></pre>
-            <h3 id="GetModVersion">GetModVersion(string modPath)</h3>
-            <p>Get the version of a mod.</p>
-            <pre><code>var version = analyzer.GetModVersion(@"C:\mods\jei.jar");
+        <h3 id="GetModVersion">GetModVersion(string modPath)</h3>
+        <p>Get the version of a mod.</p>
+        <pre><code>var version = analyzer.GetModVersion(@"C:\mods\jei.jar");
 Console.WriteLine($"JEI version: {version ?? "Unknown"}");
 
 // Batch check versions
@@ -709,9 +698,9 @@ foreach (var mod in mods)
     Console.WriteLine($"  {name}: {ver ?? "Unknown"}");
 }
 </code></pre>
-            <h3 id="GetModFileName">GetModFileName(string modId, string folderPath)</h3>
-            <p>Get the file name of a mod by its ID.</p>
-            <pre><code>var fileName = analyzer.GetModFileName("jei", @"C:\mods");
+        <h3 id="GetModFileName">GetModFileName(string modId, string folderPath)</h3>
+        <p>Get the file name of a mod by its ID.</p>
+        <pre><code>var fileName = analyzer.GetModFileName("jei", @"C:\mods");
 if (fileName != null)
 {
     Console.WriteLine($"JEI file: {fileName}");
@@ -720,13 +709,13 @@ if (fileName != null)
     Console.WriteLine($"Full path: {fullPath}");
 }
 </code></pre>
-            <h3 id="GetModSummary">GetModSummary(string modPath)</h3>
-            <p>Get a comprehensive summary string of all key metadata.</p>
-            <pre><code>var summary = analyzer.GetModSummary(@"C:\mods\jei.jar");
+        <h3 id="GetModSummary">GetModSummary(string modPath)</h3>
+        <p>Get a comprehensive summary string of all key metadata.</p>
+        <pre><code>var summary = analyzer.GetModSummary(@"C:\mods\jei.jar");
 Console.WriteLine("=== JEI Summary ===");
 Console.WriteLine(summary);
 </code></pre>
-            <div class="example-output">
+        <div class="example-output">
 === JEI Summary ===<br>
 ID: jei<br>
 Name: Just Enough Items<br>
@@ -737,10 +726,10 @@ MCVersion: 1.20.1<br>
 Required: [forge, minecraft]<br>
 Optional: [waila, nei]<br>
 Incompatibilities: [toomanyitems]
-            </div>
-            <h3 id="GetModsByLoader">GetModsByLoader(string loader, string folderPath)</h3>
-            <p>Get all mods in a folder that use a specific loader.</p>
-            <pre><code>var forgeMods = analyzer.GetModsByLoader("Forge", @"C:\mods");
+        </div>
+        <h3 id="GetModsByLoader">GetModsByLoader(string loader, string folderPath)</h3>
+        <p>Get all mods in a folder that use a specific loader.</p>
+        <pre><code>var forgeMods = analyzer.GetModsByLoader("Forge", @"C:\mods");
 var fabricMods = analyzer.GetModsByLoader("Fabric", @"C:\mods");
 
 Console.WriteLine($"Forge mods ({forgeMods.Count}):");
@@ -761,9 +750,9 @@ if (forgeMods.Count > 0 && fabricMods.Count > 0)
     Console.WriteLine("\n⚠️ Warning: Mixed Forge and Fabric mods detected!");
 }
 </code></pre>
-            <h3 id="GetModsByMinecraftVersion">GetModsByMinecraftVersion(string mcVersion, string folderPath)</h3>
-            <p>Get all mods compatible with a specific Minecraft version.</p>
-            <pre><code>var mods1201 = analyzer.GetModsByMinecraftVersion("1.20.1", @"C:\mods");
+        <h3 id="GetModsByMinecraftVersion">GetModsByMinecraftVersion(string mcVersion, string folderPath)</h3>
+        <p>Get all mods compatible with a specific Minecraft version.</p>
+        <pre><code>var mods1201 = analyzer.GetModsByMinecraftVersion("1.20.1", @"C:\mods");
 var mods1194 = analyzer.GetModsByMinecraftVersion("1.19.4", @"C:\mods");
 
 Console.WriteLine($"Mods compatible with 1.20.1 ({mods1201.Count}):");
@@ -780,9 +769,9 @@ foreach (var mod in modsWithWildcard)
     Console.WriteLine($"  - {mod.name}");
 }
 </code></pre>
-            <h3 id="ResolveCrashReport">ResolveCrashReport(string modsFolderPath, string crashReport)</h3>
-            <p>Analyze a crash report to identify potentially problematic mods.</p>
-            <pre><code>// Read crash report from file
+        <h3 id="ResolveCrashReport">ResolveCrashReport(string modsFolderPath, string crashReport)</h3>
+        <p>Analyze a crash report to identify potentially problematic mods.</p>
+        <pre><code>// Read crash report from file
 var crashReport = File.ReadAllText(@"C:\crash-reports\crash-2023-12-01.txt");
 
 // Analyze the crash
@@ -822,8 +811,8 @@ if (missingDeps.Count > 0)
     Console.WriteLine($"\n⚠️ Also check missing dependencies for {missingDeps.Count} mods");
 }
 </code></pre>
-            <h2>Complete Example: Mod Folder Analysis</h2>
-            <pre><code>using DrMod;
+        <h2>Complete Example: Mod Folder Analysis</h2>
+        <pre><code>using DrMod;
 
 class Program
 {
@@ -889,12 +878,12 @@ class Program
     }
 }
 </code></pre>
-        </div>
-        <div class="section-divider"></div>
-        <div class="license" id="license">
-            MIT License
-        </div>
     </div>
+    <div class="section-divider"></div>
+    <div class="license" id="license">
+        MIT License
+    </div>
+</div>
     </div>
     <script>
 (function() {
@@ -1100,6 +1089,15 @@ class Program
 }
 @media (max-width: 1000px) {
     .sidebar-search-container { padding: 0 8px 8px 8px; }
+}
+/* Hide sidebar scrollbar */
+.drmod-sidebar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+.drmod-sidebar::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
 }
 </style>
 </body>
