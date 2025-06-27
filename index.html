@@ -30,6 +30,18 @@
             box-shadow: 0 4px 32px #0078d733;
             position: relative;
             z-index: 2;
+            will-change: opacity, transform;
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .hero-gradient-fade {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 120px;
+            pointer-events: none;
+            background: linear-gradient(to bottom, rgba(35,35,35,0) 0%, #0a0a0a 100%);
+            z-index: 3;
+            opacity: 1;
+            transition: opacity 0.5s;
         }
         .matrix-title {
             font-size: 5em;
@@ -73,6 +85,13 @@
             margin: 0 auto;
             max-width: 900px;
             padding: 0 18px 60px 18px;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        .main-content.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
         .products-section {
             margin-top: 90px;
@@ -240,9 +259,10 @@
     <header class="hero-frame" id="home">
         <h1 class="matrix-title">MatriX</h1>
         <p class="subtitle">We Make Minecraft Things</p>
-        <div class="scroll-down-arrow"></div>
+        <div class="scroll-down-arrow" id="scrollArrow"></div>
+        <div class="hero-gradient-fade" id="heroGradientFade"></div>
     </header>
-    <main class="main-content">
+    <main class="main-content" id="mainContent">
         <section class="products-section pop-on-scroll" id="products">
             <h2>Our Products</h2>
             <div class="products-cards">
@@ -278,6 +298,34 @@
     window.addEventListener('DOMContentLoaded', () => {
         popOnScroll();
     });
+
+    // Smooth scroll on arrow click
+    document.getElementById('scrollArrow').addEventListener('click', function() {
+        const main = document.getElementById('mainContent');
+        main.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Parallax/fade effect for hero and main content
+    function handleHeroParallax() {
+        const hero = document.querySelector('.hero-frame');
+        const main = document.getElementById('mainContent');
+        const gradient = document.getElementById('heroGradientFade');
+        const scrollY = window.scrollY;
+        const heroHeight = hero.offsetHeight;
+        // Fade out hero, move up
+        let fade = Math.min(1, scrollY / (heroHeight * 0.6));
+        hero.style.opacity = 1 - fade * 0.85;
+        hero.style.transform = `translateY(${-fade * 60}px)`;
+        // Fade out gradient
+        if (gradient) gradient.style.opacity = 1 - fade;
+        // Fade in main content
+        if (main) {
+            if (fade > 0.12) main.classList.add('visible');
+            else main.classList.remove('visible');
+        }
+    }
+    window.addEventListener('scroll', handleHeroParallax);
+    window.addEventListener('DOMContentLoaded', handleHeroParallax);
     </script>
 </body>
 </html>
