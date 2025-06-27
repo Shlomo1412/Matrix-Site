@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MatriX - Modern Web Solutions</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --accent: #0078d7;
+            --background: #0a0a0a;
+            --surface: #232323;
+            --text: #f3f3f3;
+            --border: #2d2d2d;
+            --sidebar-width: 220px;
+        }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            background: var(--background);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        .hero-frame {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(120deg, #232323 60%, #0078d7 120%);
+            box-shadow: 0 4px 32px #0078d733;
+            position: relative;
+            z-index: 2;
+        }
+        .matrix-title {
+            font-size: 5em;
+            font-weight: 900;
+            letter-spacing: 4px;
+            color: #fff;
+            margin-bottom: 0.2em;
+            text-shadow: 0 8px 40px #0078d799, 0 1px 0 #232323;
+            animation: fadeInDown 1.1s cubic-bezier(.23,1.01,.32,1) 0.1s both;
+        }
+        .subtitle {
+            font-size: 1.7em;
+            color: #b0e0ff;
+            margin-bottom: 0;
+            font-weight: 500;
+            text-shadow: 0 2px 12px #0078d766;
+            animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) 0.3s both;
+        }
+        .scroll-down-arrow {
+            width: 32px;
+            height: 32px;
+            border-left: 4px solid #b0e0ff;
+            border-bottom: 4px solid #b0e0ff;
+            transform: rotate(-45deg);
+            margin-top: 60px;
+            animation: bounceArrow 1.5s infinite;
+        }
+        @keyframes bounceArrow {
+            0%, 100% { transform: translateY(0) rotate(-45deg); }
+            50% { transform: translateY(18px) rotate(-45deg); }
+        }
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .main-content {
+            margin: 0 auto;
+            max-width: 900px;
+            padding: 0 18px 60px 18px;
+        }
+        .products-section {
+            margin-top: 90px;
+            margin-bottom: 70px;
+            text-align: center;
+        }
+        .products-section h2 {
+            font-size: 2.2em;
+            color: var(--accent);
+            margin-bottom: 36px;
+            letter-spacing: 1px;
+        }
+        .products-cards {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .product-card {
+            background: linear-gradient(135deg, #232323 80%, #0078d7 120%);
+            border-radius: 20px;
+            box-shadow: 0 6px 32px #00000033;
+            padding: 38px 32px 32px 32px;
+            max-width: 350px;
+            min-width: 260px;
+            color: #fff;
+            border: 2px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.22s, box-shadow 0.22s;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+        }
+        .product-card:before {
+            content: '';
+            position: absolute;
+            top: -40px; left: -40px;
+            width: 120px; height: 120px;
+            background: radial-gradient(circle, #0078d7bb 0%, transparent 80%);
+            z-index: 0;
+        }
+        .product-card.pop-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: opacity 0.7s cubic-bezier(.23,1.01,.32,1), transform 0.7s cubic-bezier(.23,1.01,.32,1);
+        }
+        .product-card:hover {
+            transform: translateY(-10px) scale(1.04);
+            box-shadow: 0 12px 40px #0078d799;
+        }
+        .product-icon {
+            font-size: 2.7em;
+            z-index: 1;
+        }
+        .product-link {
+            margin-top: 18px;
+            color: #fff;
+            background: var(--accent);
+            padding: 10px 26px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.08em;
+            transition: background 0.2s;
+            box-shadow: 0 2px 12px #0078d733;
+            z-index: 1;
+        }
+        .product-link:hover {
+            background: #005fa3;
+        }
+        .community-section {
+            margin-top: 90px;
+            text-align: center;
+            background: linear-gradient(90deg, #232323 60%, #0078d7 120%);
+            border-radius: 22px;
+            padding: 56px 24px 48px 24px;
+            box-shadow: 0 6px 40px #0078d733;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(.23,1.01,.32,1), transform 0.7s cubic-bezier(.23,1.01,.32,1);
+        }
+        .community-section.pop-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .community-section h2 {
+            color: #fff;
+            font-size: 2.2em;
+            margin-bottom: 22px;
+            letter-spacing: 1px;
+        }
+        .community-section p {
+            color: #b0c4de;
+            font-size: 1.18em;
+            margin-bottom: 28px;
+        }
+        .discord-btn {
+            background: #5865F2;
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 10px;
+            font-size: 1.18em;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 2px 16px #5865f288;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.15s;
+            display: inline-block;
+        }
+        .discord-btn:hover {
+            background: #4752c4;
+            box-shadow: 0 6px 32px #5865f2cc;
+            transform: scale(1.04);
+        }
+        @media (max-width: 900px) {
+            .products-cards {
+                flex-direction: column;
+                align-items: center;
+                gap: 24px;
+            }
+            .main-content {
+                padding: 12px;
+                max-width: 100vw;
+            }
+            .community-section {
+                max-width: 98vw;
+                padding: 36px 6vw 32px 6vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .main-content {
+                padding: 4px;
+            }
+            .hero-frame {
+                padding: 24px 2vw 18px 2vw;
+            }
+            .matrix-title {
+                font-size: 2.2em;
+            }
+            .products-section h2, .community-section h2 {
+                font-size: 1.3em;
+            }
+            .product-card {
+                min-width: 0;
+                max-width: 98vw;
+                padding: 22px 8px 18px 8px;
+            }
+            .community-section {
+                padding: 18px 2vw 18px 2vw;
+            }
+        }
+        @media (max-width: 400px) {
+            .matrix-title { font-size: 1.1em; }
+            .subtitle { font-size: 1em; }
+            .product-card { font-size: 0.97em; }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero-frame" id="home">
+        <h1 class="matrix-title">MatriX</h1>
+        <p class="subtitle">We Make Minecraft Things</p>
+        <div class="scroll-down-arrow"></div>
+    </header>
+    <main class="main-content">
+        <section class="products-section pop-on-scroll" id="products">
+            <h2>Our Products</h2>
+            <div class="products-cards">
+                <div class="product-card pop-on-scroll">
+                    <div class="product-icon" style="background:rgba(0,120,215,0.12);border-radius:50%;padding:18px 22px;margin-bottom:20px;box-shadow:0 2px 12px #0078d733;">
+                        <img src="/Icons/DrModIcon.png" alt="Dr. Mod Icon" style="width:48px;height:48px;display:block;filter:drop-shadow(0 2px 8px #0078d755);">
+                    </div>
+                    <h3 style="font-size:1.35em;font-weight:700;letter-spacing:0.5px;">Dr. Mod Library</h3>
+                    <p style="font-size:1.08em;color:#dbeafe;margin:12px 0 0 0;">DrMod is a .NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
+                    <a href="drmod-docs.html" class="product-link" style="margin-top:22px;">Learn More</a>
+                </div>
+            </div>
+        </section>
+        <section class="community-section pop-on-scroll" id="community">
+            <h2>Join Our Community</h2>
+            <p>Connect with us and other developers on Discord!</p>
+            <a href="https://discord.gg/SHSAuM3H3D" class="discord-btn" target="_blank">Join Discord</a>
+        </section>
+    </main>
+    <script>
+    // Pop-on-scroll animation for components
+    function popOnScroll() {
+        const popEls = document.querySelectorAll('.pop-on-scroll');
+        const windowHeight = window.innerHeight;
+        popEls.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if (rect.top < windowHeight - 80) {
+                el.classList.add('pop-visible');
+            }
+        });
+    }
+    window.addEventListener('scroll', popOnScroll);
+    window.addEventListener('DOMContentLoaded', () => {
+        popOnScroll();
+    });
+    </script>
+</body>
+</html>

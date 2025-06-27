@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DrMod Documentation | MatriX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* Add a sidebar and space between page border and content */
+        body {
+            background: #10131a;
+            color: #eaf6ff;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            margin: 0;
+        }
+        .drmod-layout {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+        }
+        .drmod-sidebar {
+            width: 240px;
+            background: #181c24;
+            border-right: 1px solid #23293a;
+            padding: 36px 0 36px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 20;
+        }
+        .drmod-sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-left: 24px;
+        }
+        .drmod-sidebar a {
+            color: #7ecbff;
+            text-decoration: none;
+            font-size: 1.04em;
+            padding: 7px 0 7px 8px;
+            border-radius: 6px 0 0 6px;
+            transition: background 0.18s, color 0.18s;
+            margin-bottom: 2px;
+        }
+        .drmod-sidebar a:hover, .drmod-sidebar a.active {
+            background: #23293a;
+            color: #fff;
+        }
+        .drmod-header {
+            background: linear-gradient(120deg, #232323 60%, #0078d7 120%);
+            padding: 44px 0 24px 0;
+            text-align: center;
+            box-shadow: 0 4px 32px #0078d733;
+        }
+        .drmod-header h1 {
+            font-size: 2.5em;
+            color: #fff;
+            margin: 0 0 8px 0;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+        .drmod-header p {
+            font-size: 1.1em;
+            color: #b0e0ff;
+            margin: 0 0 4px 0;
+        }
+        .drmod-content {
+            width: 92vw;
+            max-width: 1400px;
+            margin: 0 0 0 0;
+            background: #181c24;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 32px 32px 40px 32px;
+            margin-top: -24px;
+            flex: 1 1 auto;
+        }
+        .drmod-content h2 {
+            color: #7ecbff;
+            margin-top: 32px;
+            font-size: 1.3em;
+            border-bottom: 1px solid #23293a;
+            padding-bottom: 4px;
+            margin-bottom: 18px;
+        }
+        .drmod-content h3 {
+            color: #4db3ff;
+            margin-top: 22px;
+            font-size: 1.08em;
+        }
+        .drmod-content pre, .drmod-content code {
+            background: #23293a;
+            color: #b0e0ff;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 0.98em;
+            overflow-x: auto;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            display: block;
+            white-space: pre;
+        }
+        .drmod-content pre {
+            margin: 14px 0 24px 0;
+            position: relative;
+            background: #23293a;
+        }
+        .drmod-content .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1a1e2a;
+            color: #7ecbff;
+            font-size: 0.95em;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            border-radius: 8px 8px 0 0;
+            padding: 3px 12px 2px 12px;
+            border-bottom: 1px solid #23293a;
+            user-select: none;
+        }
+        .drmod-content .code-header .code-index {
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        .drmod-content .copy-btn {
+            background: #23293a;
+            color: #7ecbff;
+            border: none;
+            border-radius: 5px;
+            padding: 2px 10px;
+            font-size: 0.95em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .drmod-content .copy-btn:hover {
+            background: #0078d7;
+            color: #fff;
+        }
+        .drmod-content pre code {
+            display: block;
+            padding: 0;
+            margin: 0;
+            background: none;
+            border-radius: 0 0 8px 8px;
+        }
+        .drmod-content ul {
+            margin-left: 18px;
+            padding-left: 0;
+        }
+        .drmod-content li {
+            margin-bottom: 4px;
+            line-height: 1.6;
+        }
+        .drmod-content .section {
+            margin-bottom: 28px;
+        }
+        .drmod-content .example-output {
+            background: #1a1e2a;
+            color: #b0ffb0;
+            border-left: 4px solid #0078d7;
+            padding: 8px 14px;
+            margin: 10px 0 16px 0;
+            font-size: 0.97em;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            white-space: pre-line;
+        }
+        .drmod-content .license {
+            color: #b0c4de;
+            font-size: 0.97em;
+            margin-top: 32px;
+            text-align: right;
+        }
+        /* Remove the topbar (drmod-nav) */
+        .drmod-nav { display: none !important; }
+
+        /* Sidebar toggle button for small screens */
+        .sidebar-toggle-btn {
+            display: none;
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            z-index: 100;
+            background: #23293a;
+            color: #7ecbff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 16px;
+            font-size: 1.2em;
+            font-weight: 700;
+            box-shadow: 0 2px 12px #0078d733;
+            cursor: pointer;
+            transition: background 0.18s, color 0.18s;
+        }
+        .sidebar-toggle-btn:active, .sidebar-toggle-btn:focus {
+            background: #0078d7;
+            color: #fff;
+        }
+        @media (max-width: 1000px) {
+            .sidebar-toggle-btn { display: block; }
+            .drmod-sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                height: 100vh;
+                width: 80vw;
+                max-width: 340px;
+                background: #181c24;
+                box-shadow: 2px 0 24px #000a;
+                transform: translateX(-100%);
+                transition: transform 0.25s cubic-bezier(.23,1.01,.32,1);
+                z-index: 200;
+            }
+            .drmod-sidebar.open {
+                transform: translateX(0);
+            }
+            .drmod-layout { position: relative; }
+        }
+        @media (max-width: 700px) {
+            .sidebar-toggle-btn { top: 8px; left: 8px; padding: 7px 12px; font-size: 1em; }
+            .drmod-sidebar { max-width: 96vw; }
+        }
+        /* Expander styles */
+        .sidebar-expander {
+            background: none;
+            border: none;
+            color: #7ecbff;
+            font-size: 1.08em;
+            font-weight: 600;
+            padding: 7px 0 7px 8px;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.18s;
+        }
+        .sidebar-expander:hover { color: #fff; }
+        .sidebar-expander .arrow {
+            font-size: 1em;
+            transition: transform 0.2s;
+        }
+        .sidebar-expander[aria-expanded="true"] .arrow {
+            transform: rotate(90deg);
+        }
+        .sidebar-expander-links {
+            display: none;
+            flex-direction: column;
+            margin-left: 8px;
+            margin-bottom: 4px;
+        }
+        .sidebar-expander[aria-expanded="true"] + .sidebar-expander-links {
+            display: flex;
+        }
+        @media (max-width: 1000px) {
+            .drmod-layout { flex-direction: column; }
+            .drmod-sidebar {
+                width: 100vw;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid #23293a;
+                position: static;
+                padding: 12px 0 12px 0;
+                z-index: 10;
+            }
+            .drmod-sidebar nav {
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0;
+                padding-left: 0;
+                justify-content: flex-start;
+            }
+            .sidebar-expander {
+                width: auto;
+                font-size: 1em;
+                padding: 7px 12px 7px 12px;
+                border-radius: 8px 8px 0 0;
+                margin-right: 8px;
+            }
+            .sidebar-expander-links {
+                margin-left: 0;
+                padding-left: 12px;
+                margin-bottom: 0;
+            }
+            .drmod-content {
+                width: 100vw;
+                max-width: 100vw;
+                padding: 14px 2vw 18px 2vw;
+            }
+        }
+        @media (max-width: 700px) {
+            .drmod-header h1 { font-size: 1.3em; }
+            .drmod-content { padding: 8px 1vw 12px 1vw; }
+            .sidebar-expander { font-size: 0.98em; padding: 6px 8px; }
+        }
+        @media (max-width: 500px) {
+            .drmod-header { padding: 18px 0 10px 0; }
+            .drmod-header h1 { font-size: 1em; }
+            .drmod-content { font-size: 0.97em; }
+            .sidebar-expander { font-size: 0.93em; padding: 5px 4px; }
+        }
+    </style>
+</head>
+<body>
+        <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Open navigation">☰ Menu</button>
+        <div class="drmod-header">
+            <h1>DrMod Documentation</h1>
+            <p>.NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
+        </div>
+        <div class="drmod-layout">
+            <aside class="drmod-sidebar" id="sidebarNav">
+                <nav>
+                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-features"><span class="arrow">▶</span> Features</button>
+                    <div class="sidebar-expander-links" id="expander-features">
+                        <a href="#features">Features</a>
+                    </div>
+                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-installation"><span class="arrow">▶</span> Installation</button>
+                    <div class="sidebar-expander-links" id="expander-installation">
+                        <a href="#installation">Installation</a>
+                    </div>
+                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-usage"><span class="arrow">▶</span> Usage</button>
+                    <div class="sidebar-expander-links" id="expander-usage">
+                        <a href="#usage">Usage</a>
+                    </div>
+                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-api"><span class="arrow">▶</span> API</button>
+                    <div class="sidebar-expander-links" id="expander-api">
+                        <a href="#api">API Reference</a>
+                        <a href="#GetRequiredJavaVersion">GetRequiredJavaVersion</a>
+                        <a href="#FindRequiredJavaVersion">FindRequiredJavaVersion</a>
+                        <a href="#ReadModMetadata">ReadModMetadata</a>
+                        <a href="#ReadAllModMetadataInFolder">ReadAllModMetadataInFolder</a>
+                        <a href="#ValidateMod">ValidateMod</a>
+                        <a href="#ValidateModsFolder">ValidateModsFolder</a>
+                        <a href="#IsCompatible">IsCompatible</a>
+                        <a href="#DetectConflicts">DetectConflicts</a>
+                        <a href="#DetectIncompatibilities">DetectIncompatibilities</a>
+                        <a href="#GetRequiredDependencies">GetRequiredDependencies</a>
+                        <a href="#GetOptionalDependencies">GetOptionalDependencies</a>
+                        <a href="#GetIncompatibilities">GetIncompatibilities</a>
+                        <a href="#GetAllDependencies">GetAllDependencies</a>
+                        <a href="#GetDependents">GetDependents</a>
+                        <a href="#GetModsWithMissingDependencies">GetModsWithMissingDependencies</a>
+                        <a href="#GetModById">GetModById</a>
+                        <a href="#GetModVersion">GetModVersion</a>
+                        <a href="#GetModFileName">GetModFileName</a>
+                        <a href="#GetModSummary">GetModSummary</a>
+                        <a href="#GetModsByLoader">GetModsByLoader</a>
+                        <a href="#GetModsByMinecraftVersion">GetModsByMinecraftVersion</a>
+                        <a href="#ResolveCrashReport">ResolveCrashReport</a>
+                    </div>
+                    <button class="sidebar-expander" aria-expanded="false" aria-controls="expander-license"><span class="arrow">▶</span> License</button>
+                    <div class="sidebar-expander-links" id="expander-license">
+                        <a href="#license">License</a>
+                    </div>
+                </nav>
+            </aside>
+            <div class="drmod-content">
+                <div class="section" id="features">
+            <h2>Features</h2>
+            <ul>
+                <li>Cross-loader support: Forge, NeoForge, Fabric, Quilt</li>
+                <li>Read mod metadata from JARs or metadata files</li>
+                <li>Detect required/optional dependencies and incompatibilities</li>
+                <li>Validate mods and mod folders</li>
+                <li>Detect duplicate/conflicting/incompatible mods</li>
+                <li>Analyze crash reports to identify problematic mods</li>
+                <li>Query mods by loader, Minecraft version, dependencies, and more</li>
+            </ul>
+        </div>
+        <div class="section" id="installation">
+            <h2>Installation</h2>
+            <p>Add the DrMod project to your solution or reference the DLL. Target .NET 8 or later.</p>
+        </div>
+        <div class="section" id="usage">
+            <h2>Usage</h2>
+            <h3>Creating an Analyzer</h3>
+            <pre><code>using DrMod;
+
+var analyzer = new DrMod();
+</code></pre>
+        </div>
+        <div class="section" id="api">
+            <h2>API Reference with Examples</h2>
+            <h3 id="GetRequiredJavaVersion">GetRequiredJavaVersion(string modPath)</h3>
+            <p>Get the required Java version for a mod (e.g., 8, 17, 21).</p>
+            <pre><code>var javaVersion = analyzer.GetRequiredJavaVersion(@"C:\mods\jei.jar");
+Console.WriteLine($"JEI requires Java {javaVersion}+");
+</code></pre>
+            <h3 id="FindRequiredJavaVersion">FindRequiredJavaVersion(string modPath)</h3>
+            <p>Get the required Java version for a mod (e.g., 8, 17, 21).</p>
+            <pre><code>var jdkPath = analyzer.FindRequiredJavaVersion(@"C:\mods\jei.jar");
+if (jdkPath != null)
+    Console.WriteLine($"Found suitable JDK at: {jdkPath}");
+else
+    Console.WriteLine("No suitable JDK found for this mod's requirements.");
+</code></pre>
+            <h3 id="ReadModMetadata">ReadModMetadata(string filePath)</h3>
+            <p>Read metadata from a mod JAR or metadata file.</p>
+            <pre><code>// Reading from a JAR file
+var metadata = analyzer.ReadModMetadata(@"C:\mods\jei-1.20.1-15.2.0.27.jar");
+if (metadata != null)
+{
+    Console.WriteLine($"Mod ID: {metadata.modId}");
+    Console.WriteLine($"Name: {metadata.name}");
+    Console.WriteLine($"Version: {metadata.modVersion}");
+    Console.WriteLine($"Loader: {metadata.loader}");
+}
+
+// Reading from a metadata file directly
+var fabricMeta = analyzer.ReadModMetadata(@"C:\fabric.mod.json");
+var forgeMeta = analyzer.ReadModMetadata(@"C:\META-INF\mods.toml");
+</code></pre>
+            <h3 id="ReadAllModMetadataInFolder">ReadAllModMetadataInFolder(string folderPath)</h3>
+            <p>Read metadata for all mods in a folder.</p>
+            <pre><code>var allMods = analyzer.ReadAllModMetadataInFolder(@"C:\Minecraft\mods");
+Console.WriteLine($"Found {allMods.Count} mods:");
+
+foreach (var mod in allMods)
+{
+    Console.WriteLine($"- {mod.name} ({mod.modId}) v{mod.modVersion} [{mod.loader}]");
+}
+
+// Filter by specific criteria
+var forgeMods = allMods.Where(m => m.loader == "Forge").ToList();
+var fabricMods = allMods.Where(m => m.loader == "Fabric").ToList();
+</code></pre>
+            <h3 id="ValidateMod">ValidateMod(string modPath)</h3>
+            <p>Validate a single mod and return a list of errors.</p>
+            <pre><code>var errors = analyzer.ValidateMod(@"C:\mods\examplemod.jar");
+
+if (errors.Count == 0)
+{
+    Console.WriteLine("✅ Mod is valid!");
+}
+else
+{
+    Console.WriteLine("❌ Mod validation errors:");
+    foreach (var error in errors)
+    {
+        Console.WriteLine($"  - {error}");
+    }
+}
+</code></pre>
+            <div class="example-output">
+❌ Mod validation errors:<br>
+- Missing modId.<br>
+- Missing Minecraft version.<br>
+- Duplicate required dependency: forge
+            </div>
+            <h3 id="ValidateModsFolder">ValidateModsFolder(string folderPath)</h3>
+            <p>Validate all mods in a folder and detect folder-wide issues.</p>
+            <pre><code>var folderErrors = analyzer.ValidateModsFolder(@"C:\Minecraft\mods");
+
+if (folderErrors.Count == 0)
+{
+    Console.WriteLine("✅ All mods in folder are valid!");
+}
+else
+{
+    Console.WriteLine($"❌ Found {folderErrors.Count} issues:");
+    foreach (var error in folderErrors)
+    {
+        Console.WriteLine($"  {error}");
+    }
+}
+</code></pre>
+            <div class="example-output">
+❌ Found 3 issues:<br>
+[badmod.jar] Missing modId.<br>
+Duplicate modId detected: jei<br>
+Multiple Minecraft versions detected in mods folder: 1.20.1, 1.19.4<br>
+[modA] is incompatible with [modB]
+            </div>
+            <h3 id="IsCompatible">IsCompatible(string modPath, string mcVersion, string loader, string loaderVersion)</h3>
+            <p>Check if a mod is compatible with specific game/loader versions.</p>
+            <pre><code>// Check compatibility with specific versions
+bool isCompatible = analyzer.IsCompatible(
+    @"C:\mods\jei.jar",
+    mcVersion: "1.20.1",
+    loader: "Forge",
+    loaderVersion: "47.1.0"
+);
+
+Console.WriteLine($"JEI is compatible: {isCompatible}");
+
+// Batch check multiple mods
+var mods = Directory.GetFiles(@"C:\mods", "*.jar");
+var targetMC = "1.20.1";
+var targetLoader = "Forge";
+var targetLoaderVer = "47.1.0";
+
+foreach (var mod in mods)
+{
+    var compatible = analyzer.IsCompatible(mod, targetMC, targetLoader, targetLoaderVer);
+    var modName = Path.GetFileNameWithoutExtension(mod);
+    Console.WriteLine($"{modName}: {(compatible ? "✅" : "❌")}");
+}
+</code></pre>
+            <h3 id="DetectConflicts">DetectConflicts(List&lt;string&gt; modPaths)</h3>
+            <p>Detect duplicate mod IDs in a list of mod files.</p>
+            <pre><code>var modFiles = Directory.GetFiles(@"C:\mods", "*.jar").ToList();
+var conflicts = analyzer.DetectConflicts(modFiles);
+
+if (conflicts.Count > 0)
+{
+    Console.WriteLine("🔴 Conflicting mods detected:");
+    foreach (var conflict in conflicts)
+    {
+        Console.WriteLine($"  Duplicate mod ID: {conflict}");
+        // Find which files have the same ID
+        var conflictingFiles = modFiles.Where(f => 
+        {
+            var meta = analyzer.ReadModMetadata(f);
+            return meta?.modId == conflict;
+        });
+        foreach (var file in conflictingFiles)
+        {
+            Console.WriteLine($"    - {Path.GetFileName(file)}");
+        }
+    }
+}
+</code></pre>
+            <h3 id="DetectIncompatibilities">DetectIncompatibilities(List&lt;string&gt; modPaths)</h3>
+            <p>Detect explicit incompatibilities between mods.</p>
+            <pre><code>var modFiles = Directory.GetFiles(@"C:\mods", "*.jar").ToList();
+var incompatibilities = analyzer.DetectIncompatibilities(modFiles);
+
+if (incompatibilities.Count > 0)
+{
+    Console.WriteLine("⚠️ Incompatible mods detected:");
+    foreach (var (modId, incompatibleWith) in incompatibilities)
+    {
+        Console.WriteLine($"  {modId} is incompatible with {incompatibleWith}");
+    }
+    Console.WriteLine("\n💡 Consider removing one mod from each incompatible pair.");
+}
+</code></pre>
+            <h3 id="GetRequiredDependencies">GetRequiredDependencies(string modPath)</h3>
+            <p>Get required dependencies for a mod.</p>
+            <pre><code>var requiredDeps = analyzer.GetRequiredDependencies(@"C:\mods\jei.jar");
+
+Console.WriteLine("Required dependencies:");
+foreach (var dep in requiredDeps)
+{
+    Console.WriteLine($"  - {dep}");
+}
+</code></pre>
+            <div class="example-output">
+Required dependencies:<br>
+- forge<br>
+- minecraft
+            </div>
+            <h3 id="GetOptionalDependencies">GetOptionalDependencies(string modPath)</h3>
+            <p>Get optional dependencies for a mod.</p>
+            <pre><code>var optionalDeps = analyzer.GetOptionalDependencies(@"C:\mods\jei.jar");
+
+Console.WriteLine("Optional dependencies:");
+foreach (var dep in optionalDeps)
+{
+    Console.WriteLine($"  - {dep}");
+}
+</code></pre>
+            <h3 id="GetIncompatibilities">GetIncompatibilities(string modPath)</h3>
+            <p>Get explicit incompatibilities for a mod.</p>
+            <pre><code>var incompatibilities = analyzer.GetIncompatibilities(@"C:\mods\optifine.jar");
+
+if (incompatibilities.Count > 0)
+{
+    Console.WriteLine("⚠️ This mod is incompatible with:");
+    foreach (var inc in incompatibilities)
+    {
+        Console.WriteLine($"  - {inc}");
+    }
+}
+</code></pre>
+            <h3 id="GetAllDependencies">GetAllDependencies(string modPath, bool includeOptional = false)</h3>
+            <p>Recursively get all (transitive) dependencies for a mod.</p>
+            <pre><code>// Get only required dependencies (including transitive)
+var allRequired = analyzer.GetAllDependencies(@"C:\mods\complexmod.jar", false);
+
+// Get all dependencies including optional ones
+var allDeps = analyzer.GetAllDependencies(@"C:\mods\complexmod.jar", true);
+
+Console.WriteLine($"Total required dependencies: {allRequired.Count}");
+Console.WriteLine($"Total dependencies (inc. optional): {allDeps.Count}");
+
+Console.WriteLine("\nFull dependency tree:");
+foreach (var dep in allDeps)
+{
+    Console.WriteLine($"  - {dep}");
+}
+</code></pre>
+            <h3 id="GetDependents">GetDependents(string modId, string folderPath)</h3>
+            <p>Get all mods that depend on a given mod.</p>
+            <pre><code>var dependents = analyzer.GetDependents("jei", @"C:\mods");
+
+Console.WriteLine($"Mods that depend on JEI ({dependents.Count}):");
+foreach (var dependent in dependents)
+{
+    Console.WriteLine($"  - {dependent}");
+}
+
+// Useful for understanding impact of removing a mod
+if (dependents.Count > 0)
+{
+    Console.WriteLine($"\n⚠️ Removing JEI will affect {dependents.Count} other mods!");
+}
+</code></pre>
+            <h3 id="GetModsWithMissingDependencies">GetModsWithMissingDependencies(string folderPath)</h3>
+            <p>Get mods that have missing required dependencies.</p>
+            <pre><code>var modsWithMissingDeps = analyzer.GetModsWithMissingDependencies(@"C:\mods");
+
+if (modsWithMissingDeps.Count > 0)
+{
+    Console.WriteLine($"🔴 {modsWithMissingDeps.Count} mods have missing dependencies:");
+    foreach (var modId in modsWithMissingDeps)
+    {
+        var modPath = Directory.GetFiles(@"C:\mods", "*.jar")
+            .FirstOrDefault(f => analyzer.ReadModMetadata(f)?.modId == modId);
+        if (modPath != null)
+        {
+            var requiredDeps = analyzer.GetRequiredDependencies(modPath);
+            var availableMods = analyzer.ReadAllModMetadataInFolder(@"C:\mods")
+                .Select(m => m.modId).ToHashSet();
+            var missingDeps = requiredDeps.Where(dep => !availableMods.Contains(dep));
+            Console.WriteLine($"  {modId}:");
+            foreach (var missing in missingDeps)
+            {
+                Console.WriteLine($"    - Missing: {missing}");
+            }
+        }
+    }
+}
+</code></pre>
+            <h3 id="GetModById">GetModById(string modId, string folderPath)</h3>
+            <p>Get metadata for a mod by its ID.</p>
+            <pre><code>var jeiMeta = analyzer.GetModById("jei", @"C:\mods");
+
+if (jeiMeta != null)
+{
+    Console.WriteLine($"Found JEI: {jeiMeta.name} v{jeiMeta.modVersion}");
+    Console.WriteLine($"Description: {jeiMeta.description}");
+}
+else
+{
+    Console.WriteLine("JEI not found in mods folder");
+}
+</code></pre>
+            <h3 id="GetModVersion">GetModVersion(string modPath)</h3>
+            <p>Get the version of a mod.</p>
+            <pre><code>var version = analyzer.GetModVersion(@"C:\mods\jei.jar");
+Console.WriteLine($"JEI version: {version ?? "Unknown"}");
+
+// Batch check versions
+var mods = Directory.GetFiles(@"C:\mods", "*.jar");
+Console.WriteLine("Mod versions:");
+foreach (var mod in mods)
+{
+    var ver = analyzer.GetModVersion(mod);
+    var name = Path.GetFileNameWithoutExtension(mod);
+    Console.WriteLine($"  {name}: {ver ?? "Unknown"}");
+}
+</code></pre>
+            <h3 id="GetModFileName">GetModFileName(string modId, string folderPath)</h3>
+            <p>Get the file name of a mod by its ID.</p>
+            <pre><code>var fileName = analyzer.GetModFileName("jei", @"C:\mods");
+if (fileName != null)
+{
+    Console.WriteLine($"JEI file: {fileName}");
+    // You can now use this to get the full path
+    var fullPath = Path.Combine(@"C:\mods", fileName);
+    Console.WriteLine($"Full path: {fullPath}");
+}
+</code></pre>
+            <h3 id="GetModSummary">GetModSummary(string modPath)</h3>
+            <p>Get a comprehensive summary string of all key metadata.</p>
+            <pre><code>var summary = analyzer.GetModSummary(@"C:\mods\jei.jar");
+Console.WriteLine("=== JEI Summary ===");
+Console.WriteLine(summary);
+</code></pre>
+            <div class="example-output">
+=== JEI Summary ===<br>
+ID: jei<br>
+Name: Just Enough Items<br>
+Version: 15.2.0.27<br>
+Loader: Forge<br>
+LoaderVersion: 47.1.0<br>
+MCVersion: 1.20.1<br>
+Required: [forge, minecraft]<br>
+Optional: [waila, nei]<br>
+Incompatibilities: [toomanyitems]
+            </div>
+            <h3 id="GetModsByLoader">GetModsByLoader(string loader, string folderPath)</h3>
+            <p>Get all mods in a folder that use a specific loader.</p>
+            <pre><code>var forgeMods = analyzer.GetModsByLoader("Forge", @"C:\mods");
+var fabricMods = analyzer.GetModsByLoader("Fabric", @"C:\mods");
+
+Console.WriteLine($"Forge mods ({forgeMods.Count}):");
+foreach (var mod in forgeMods)
+{
+    Console.WriteLine($"  - {mod.name} ({mod.modId})");
+}
+
+Console.WriteLine($"\nFabric mods ({fabricMods.Count}):");
+foreach (var mod in fabricMods)
+{
+    Console.WriteLine($"  - {mod.name} ({mod.modId})");
+}
+
+// Check for mixed loaders (potential issue)
+if (forgeMods.Count > 0 && fabricMods.Count > 0)
+{
+    Console.WriteLine("\n⚠️ Warning: Mixed Forge and Fabric mods detected!");
+}
+</code></pre>
+            <h3 id="GetModsByMinecraftVersion">GetModsByMinecraftVersion(string mcVersion, string folderPath)</h3>
+            <p>Get all mods compatible with a specific Minecraft version.</p>
+            <pre><code>var mods1201 = analyzer.GetModsByMinecraftVersion("1.20.1", @"C:\mods");
+var mods1194 = analyzer.GetModsByMinecraftVersion("1.19.4", @"C:\mods");
+
+Console.WriteLine($"Mods compatible with 1.20.1 ({mods1201.Count}):");
+foreach (var mod in mods1201)
+{
+    Console.WriteLine($"  - {mod.name} ({mod.minecraftVersion})");
+}
+
+// Find mods that work with multiple versions
+var modsWithWildcard = analyzer.GetModsByMinecraftVersion("1.20.x", @"C:\mods");
+Console.WriteLine($"\nMods supporting 1.20.x ({modsWithWildcard.Count}):");
+foreach (var mod in modsWithWildcard)
+{
+    Console.WriteLine($"  - {mod.name}");
+}
+</code></pre>
+            <h3 id="ResolveCrashReport">ResolveCrashReport(string modsFolderPath, string crashReport)</h3>
+            <p>Analyze a crash report to identify potentially problematic mods.</p>
+            <pre><code>// Read crash report from file
+var crashReport = File.ReadAllText(@"C:\crash-reports\crash-2023-12-01.txt");
+
+// Analyze the crash
+var result = analyzer.ResolveCrashReport(@"C:\mods", crashReport);
+
+if (result is List<string> suspiciousMods)
+{
+    Console.WriteLine($"🔍 Found {suspiciousMods.Count} potentially problematic mods:");
+    foreach (var modId in suspiciousMods)
+    {
+        var modMeta = analyzer.GetModById(modId, @"C:\mods");
+        if (modMeta != null)
+        {
+            Console.WriteLine($"  - {modMeta.name} ({modId}) v{modMeta.modVersion}");
+        }
+        else
+        {
+            Console.WriteLine($"  - {modId}");
+        }
+    }
+    Console.WriteLine("\n💡 Try removing these mods one by one to isolate the issue.");
+    Console.WriteLine("💡 Check for mod updates or compatibility issues.");
+}
+else
+{
+    Console.WriteLine("ℹ️ No obvious problematic mods identified in crash report.");
+    Console.WriteLine("💡 The crash might be caused by:");
+    Console.WriteLine("   - Missing dependencies");
+    Console.WriteLine("   - Incompatible mod versions");
+    Console.WriteLine("   - Java/Minecraft version issues");
+}
+
+// Advanced: Combine with other analysis
+var missingDeps = analyzer.GetModsWithMissingDependencies(@"C:\mods");
+if (missingDeps.Count > 0)
+{
+    Console.WriteLine($"\n⚠️ Also check missing dependencies for {missingDeps.Count} mods");
+}
+</code></pre>
+            <h2>Complete Example: Mod Folder Analysis</h2>
+            <pre><code>using DrMod;
+
+class Program
+{
+    static void Main()
+    {
+        var analyzer = new DrMod();
+        var modsPath = @"C:\Minecraft\mods";
+        
+        Console.WriteLine("=== DrMod Analysis Report ===\n");
+        
+        // 1. Basic folder validation
+        var errors = analyzer.ValidateModsFolder(modsPath);
+        Console.WriteLine($"📋 Validation: {(errors.Count == 0 ? "✅ PASSED" : $"❌ {errors.Count} ISSUES")}");
+        
+        if (errors.Count > 0)
+        {
+            foreach (var error in errors.Take(5)) // Show first 5 errors
+            {
+                Console.WriteLine($"   {error}");
+            }
+            if (errors.Count > 5) Console.WriteLine($"   ... and {errors.Count - 5} more");
+        }
+        
+        // 2. Mod inventory
+        var allMods = analyzer.ReadAllModMetadataInFolder(modsPath);
+        Console.WriteLine($"\n📦 Total mods: {allMods.Count}");
+        
+        var byLoader = allMods.GroupBy(m => m.loader).ToDictionary(g => g.Key, g => g.Count());
+        foreach (var (loader, count) in byLoader)
+        {
+            Console.WriteLine($"   {loader}: {count} mods");
+        }
+        
+        // 3. Dependency analysis
+        var missingDeps = analyzer.GetModsWithMissingDependencies(modsPath);
+        Console.WriteLine($"\n🔗 Dependencies: {(missingDeps.Count == 0 ? "✅ ALL SATISFIED" : $"❌ {missingDeps.Count} MISSING")}");
+        
+        // 4. Conflict detection
+        var conflicts = analyzer.DetectConflicts(Directory.GetFiles(modsPath, "*.jar").ToList());
+        var incompatibilities = analyzer.DetectIncompatibilities(Directory.GetFiles(modsPath, "*.jar").ToList());
+        
+        Console.WriteLine($"\n⚔️ Conflicts: {conflicts.Count} duplicates, {incompatibilities.Count} incompatibilities");
+        
+        // 5. Most depended-on mods
+        Console.WriteLine("\n🌟 Most popular dependencies:");
+        var dependencyCounts = new Dictionary<string, int>();
+        
+        foreach (var mod in allMods)
+        {
+            foreach (var dep in mod.requiredDependencies)
+            {
+                dependencyCounts[dep] = dependencyCounts.GetValueOrDefault(dep, 0) + 1;
+            }
+        }
+        
+        var topDeps = dependencyCounts.OrderByDescending(kvp => kvp.Value).Take(5);
+        foreach (var (dep, count) in topDeps)
+        {
+            Console.WriteLine($"   {dep}: required by {count} mods");
+        }
+        
+        Console.WriteLine("\n✅ Analysis complete!");
+    }
+}
+</code></pre>
+        </div>
+        <div class="license" id="license">
+            MIT License
+        </div>
+    </div>
+    </div>
+    <script>
+(function() {
+    // Add code indexing and copy buttons to all code previews
+    document.addEventListener('DOMContentLoaded', function() {
+        const codeBlocks = document.querySelectorAll('.drmod-content pre code');
+        let codeIndex = 1;
+        codeBlocks.forEach(function(code) {
+            const pre = code.parentElement;
+            // Create header
+            const header = document.createElement('div');
+            header.className = 'code-header';
+            const index = document.createElement('span');
+            index.className = 'code-index';
+            index.textContent = `C# Example #${codeIndex++}`;
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'copy-btn';
+            copyBtn.textContent = 'Copy';
+            copyBtn.onclick = function() {
+                navigator.clipboard.writeText(code.textContent);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => copyBtn.textContent = 'Copy', 1200);
+            };
+            header.appendChild(index);
+            header.appendChild(copyBtn);
+            pre.parentNode.insertBefore(header, pre);
+        });
+
+        // Sidebar expanders
+        const expanders = document.querySelectorAll('.sidebar-expander');
+        expanders.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const expanded = btn.getAttribute('aria-expanded') === 'true';
+                // Collapse all others
+                expanders.forEach(b => {
+                    b.setAttribute('aria-expanded', 'false');
+                });
+                // Expand this one if it was not already expanded
+                btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            });
+        });
+
+        // Sidebar toggle for mobile
+        const sidebar = document.getElementById('sidebarNav');
+        const toggleBtn = document.getElementById('sidebarToggle');
+        if (sidebar && toggleBtn) {
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('open');
+            });
+            // Close sidebar when clicking outside (on mobile)
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 1000 && sidebar.classList.contains('open')) {
+                    if (!sidebar.contains(e.target) && e.target !== toggleBtn) {
+                        sidebar.classList.remove('open');
+                    }
+                }
+            });
+            // Optional: close sidebar on navigation
+            sidebar.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth <= 1000) sidebar.classList.remove('open');
+                });
+            });
+        }
+    });
+})();
+</script>
+</body>
+</html>
