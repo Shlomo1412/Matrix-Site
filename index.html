@@ -368,7 +368,7 @@
     <header class="hero-frame" id="home">
         <div class="hero-animated-bg"></div>
         <h1 class="matrix-title">MatriX</h1>
-        <p class="subtitle">We Make Minecraft Things</p>
+        <p class="subtitle typewriter">We Make Minecraft Things<span class="type-cursor">|</span></p>
         <div class="scroll-down-arrow" id="scrollArrow"></div>
         <div class="hero-gradient-fade" id="heroGradientFade"></div>
     </header>
@@ -447,6 +447,29 @@
     }
     window.addEventListener('scroll', handleHeroParallax);
     window.addEventListener('DOMContentLoaded', handleHeroParallax);
+
+    // Typewriter animation for subtitle
+    document.addEventListener('DOMContentLoaded', function() {
+        const subtitle = document.querySelector('.subtitle.typewriter');
+        if (!subtitle) return;
+        const fullText = 'We Make Minecraft Things';
+        const cursor = subtitle.querySelector('.type-cursor');
+        let i = 0;
+        function type() {
+            subtitle.childNodes[0].textContent = fullText.slice(0, i);
+            i++;
+            if (i <= fullText.length) {
+                setTimeout(type, 28 + Math.random()*32); // Faster typing
+            }
+        }
+        // Start with empty text
+        subtitle.childNodes[0].textContent = '';
+        setTimeout(type, 200); // Slightly faster initial delay
+        // Blinking cursor
+        setInterval(() => {
+            if (cursor) cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+        }, 480);
+    });
     </script>
 </body>
 </html>
