@@ -19,6 +19,8 @@
             background: var(--background);
             color: var(--text);
             overflow-x: hidden;
+            font-size: 1.08em;
+            letter-spacing: 0.01em;
         }
         .hero-frame {
             min-height: 100vh;
@@ -32,6 +34,58 @@
             z-index: 2;
             will-change: opacity, transform;
             transition: opacity 0.5s, transform 0.5s;
+            overflow: hidden;
+        }
+        .hero-animated-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(ellipse 60% 40% at 60% 30%, #0078d7cc 0%, transparent 80%),
+                        radial-gradient(ellipse 40% 30% at 30% 70%, #00e0ff33 0%, transparent 80%);
+            animation: heroBgMove 12s ease-in-out infinite alternate;
+            filter: blur(32px) brightness(1.1);
+            opacity: 0.7;
+        }
+        @keyframes heroBgMove {
+            0% { background-position: 60% 30%, 30% 70%; }
+            100% { background-position: 65% 35%, 35% 75%; }
+        }
+        .matrix-title {
+            font-size: 4.2em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #fff;
+            margin-bottom: 0.18em;
+            text-shadow: 0 8px 40px #0078d799, 0 1px 0 #232323;
+            animation: fadeInDown 1.1s cubic-bezier(.23,1.01,.32,1) 0.1s both;
+            z-index: 2;
+        }
+        .subtitle {
+            font-size: 1.35em;
+            color: #b0e0ff;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-shadow: 0 2px 12px #0078d766;
+            animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) 0.3s both;
+            z-index: 2;
+        }
+        .scroll-down-arrow {
+            width: 38px;
+            height: 38px;
+            border-left: 4px solid #b0e0ff;
+            border-bottom: 4px solid #b0e0ff;
+            transform: rotate(-45deg);
+            margin-top: 60px;
+            animation: bounceArrow 1.5s infinite;
+            box-shadow: 0 0 16px #00e0ff55;
+            cursor: pointer;
+            transition: box-shadow 0.2s, border-color 0.2s;
+            z-index: 2;
+        }
+        .scroll-down-arrow:hover {
+            box-shadow: 0 0 32px #00e0ffcc;
+            border-color: #fff;
         }
         .hero-gradient-fade {
             position: absolute;
@@ -42,32 +96,6 @@
             z-index: 3;
             opacity: 1;
             transition: opacity 0.5s;
-        }
-        .matrix-title {
-            font-size: 5em;
-            font-weight: 900;
-            letter-spacing: 4px;
-            color: #fff;
-            margin-bottom: 0.2em;
-            text-shadow: 0 8px 40px #0078d799, 0 1px 0 #232323;
-            animation: fadeInDown 1.1s cubic-bezier(.23,1.01,.32,1) 0.1s both;
-        }
-        .subtitle {
-            font-size: 1.7em;
-            color: #b0e0ff;
-            margin-bottom: 0;
-            font-weight: 500;
-            text-shadow: 0 2px 12px #0078d766;
-            animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) 0.3s both;
-        }
-        .scroll-down-arrow {
-            width: 32px;
-            height: 32px;
-            border-left: 4px solid #b0e0ff;
-            border-bottom: 4px solid #b0e0ff;
-            transform: rotate(-45deg);
-            margin-top: 60px;
-            animation: bounceArrow 1.5s infinite;
         }
         @keyframes bounceArrow {
             0%, 100% { transform: translateY(0) rotate(-45deg); }
@@ -83,8 +111,8 @@
         }
         .main-content {
             margin: 0 auto;
-            max-width: 900px;
-            padding: 0 18px 60px 18px;
+            max-width: 980px;
+            padding: 0 28px 80px 28px;
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.5s, transform 0.5s;
@@ -93,32 +121,40 @@
             opacity: 1;
             transform: translateY(0);
         }
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent 0%, #2d2d2d 50%, transparent 100%);
+            margin: 60px 0 40px 0;
+            border: none;
+        }
         .products-section {
-            margin-top: 90px;
-            margin-bottom: 70px;
+            margin-top: 60px;
+            margin-bottom: 60px;
             text-align: center;
         }
         .products-section h2 {
-            font-size: 2.2em;
+            font-size: 2em;
             color: var(--accent);
-            margin-bottom: 36px;
+            margin-bottom: 32px;
             letter-spacing: 1px;
+            font-weight: 700;
         }
         .products-cards {
             display: flex;
             justify-content: center;
-            gap: 40px;
+            gap: 36px;
             flex-wrap: wrap;
         }
         .product-card {
             background: linear-gradient(135deg, #232323 80%, #0078d7 120%);
-            border-radius: 20px;
-            box-shadow: 0 6px 32px #00000033;
-            padding: 38px 32px 32px 32px;
-            max-width: 350px;
-            min-width: 260px;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px #00000022;
+            padding: 36px 28px 28px 28px;
+            max-width: 340px;
+            min-width: 220px;
             color: #fff;
-            border: 2px solid var(--border);
+            border: 1.5px solid var(--border);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -158,21 +194,22 @@
             text-decoration: none;
             font-weight: 600;
             font-size: 1.08em;
-            transition: background 0.2s;
+            transition: background 0.2s, box-shadow 0.2s;
             box-shadow: 0 2px 12px #0078d733;
             z-index: 1;
         }
         .product-link:hover {
             background: #005fa3;
+            box-shadow: 0 4px 18px #0078d799;
         }
         .community-section {
-            margin-top: 90px;
+            margin-top: 70px;
             text-align: center;
             background: linear-gradient(90deg, #232323 60%, #0078d7 120%);
-            border-radius: 22px;
-            padding: 56px 24px 48px 24px;
+            border-radius: 18px;
+            padding: 48px 20px 40px 20px;
             box-shadow: 0 6px 40px #0078d733;
-            max-width: 650px;
+            max-width: 600px;
             margin-left: auto;
             margin-right: auto;
             opacity: 0;
@@ -185,21 +222,22 @@
         }
         .community-section h2 {
             color: #fff;
-            font-size: 2.2em;
-            margin-bottom: 22px;
+            font-size: 1.7em;
+            margin-bottom: 18px;
             letter-spacing: 1px;
+            font-weight: 700;
         }
         .community-section p {
             color: #b0c4de;
-            font-size: 1.18em;
-            margin-bottom: 28px;
+            font-size: 1.08em;
+            margin-bottom: 22px;
         }
         .discord-btn {
             background: #5865F2;
             color: #fff;
-            padding: 16px 40px;
-            border-radius: 10px;
-            font-size: 1.18em;
+            padding: 14px 34px;
+            border-radius: 8px;
+            font-size: 1.08em;
             font-weight: 700;
             text-decoration: none;
             box-shadow: 0 2px 16px #5865f288;
@@ -209,6 +247,70 @@
         .discord-btn:hover {
             background: #4752c4;
             box-shadow: 0 6px 32px #5865f2cc;
+            transform: scale(1.04);
+        }
+        .donate-section {
+            margin-top: 70px;
+            text-align: center;
+            background: linear-gradient(90deg, #232323 60%, #0078d7 120%);
+            border-radius: 18px;
+            padding: 48px 20px 40px 20px;
+            box-shadow: 0 6px 40px #0078d733;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            transform: translateY(40px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(.23,1.01,.32,1), transform 0.7s cubic-bezier(.23,1.01,.32,1);
+        }
+        .donate-section.pop-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .donate-section h2 {
+            color: #fff;
+            font-size: 1.7em;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+        .donate-section p {
+            color: #b0c4de;
+            font-size: 1.08em;
+            margin-bottom: 22px;
+        }
+        .donate-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+        .donate-btn {
+            background: #fff;
+            color: #0078d7;
+            padding: 14px 34px;
+            border-radius: 8px;
+            font-size: 1.08em;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 2px 16px #0078d733;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.15s;
+            display: inline-block;
+            border: none;
+        }
+        .donate-btn.kofi {
+            background: #29abe0;
+            color: #fff;
+        }
+        .donate-btn.bmc {
+            background: #ffdd00;
+            color: #232323;
+        }
+        .donate-btn:hover {
+            background: #0078d7;
+            color: #fff;
+            box-shadow: 0 6px 32px #0078d799;
             transform: scale(1.04);
         }
         @media (max-width: 900px) {
@@ -225,6 +327,10 @@
                 max-width: 98vw;
                 padding: 36px 6vw 32px 6vw;
             }
+            .donate-section {
+                max-width: 98vw;
+                padding: 36px 6vw 32px 6vw;
+            }
         }
         @media (max-width: 600px) {
             .main-content {
@@ -237,7 +343,7 @@
                 font-size: 2.2em;
             }
             .products-section h2, .community-section h2 {
-                font-size: 1.3em;
+                font-size: 1.1em;
             }
             .product-card {
                 min-width: 0;
@@ -245,6 +351,9 @@
                 padding: 22px 8px 18px 8px;
             }
             .community-section {
+                padding: 18px 2vw 18px 2vw;
+            }
+            .donate-section {
                 padding: 18px 2vw 18px 2vw;
             }
         }
@@ -257,12 +366,14 @@
 </head>
 <body>
     <header class="hero-frame" id="home">
+        <div class="hero-animated-bg"></div>
         <h1 class="matrix-title">MatriX</h1>
         <p class="subtitle">We Make Minecraft Things</p>
         <div class="scroll-down-arrow" id="scrollArrow"></div>
         <div class="hero-gradient-fade" id="heroGradientFade"></div>
     </header>
     <main class="main-content" id="mainContent">
+        <hr class="section-divider" />
         <section class="products-section pop-on-scroll" id="products">
             <h2>Our Products</h2>
             <div class="products-cards">
@@ -270,16 +381,26 @@
                     <div class="product-icon" style="background:rgba(0,120,215,0.12);border-radius:50%;padding:18px 22px;margin-bottom:20px;box-shadow:0 2px 12px #0078d733;">
                         <img src="/Icons/DrModIcon.png" alt="Dr. Mod Icon" style="width:48px;height:48px;display:block;filter:drop-shadow(0 2px 8px #0078d755);">
                     </div>
-                    <h3 style="font-size:1.35em;font-weight:700;letter-spacing:0.5px;">Dr. Mod Library</h3>
-                    <p style="font-size:1.08em;color:#dbeafe;margin:12px 0 0 0;">DrMod is a .NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
-                    <a href="drmod-docs.html" class="product-link" style="margin-top:22px;">Learn More</a>
+                    <h3 style="font-size:1.18em;font-weight:700;letter-spacing:0.5px;margin-bottom:8px;">Dr. Mod Library</h3>
+                    <p style="font-size:1em;color:#dbeafe;margin:8px 0 0 0;line-height:1.6;">DrMod is a .NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
+                    <a href="drmod-docs.html" class="product-link" style="margin-top:18px;">Learn More</a>
                 </div>
             </div>
         </section>
+        <hr class="section-divider" />
         <section class="community-section pop-on-scroll" id="community">
             <h2>Join Our Community</h2>
             <p>Connect with us and other developers on Discord!</p>
             <a href="https://discord.gg/SHSAuM3H3D" class="discord-btn" target="_blank">Join Discord</a>
+        </section>
+        <hr class="section-divider" />
+        <section class="donate-section pop-on-scroll" id="donate">
+            <h2>Support MatriX</h2>
+            <p>Like our work? Help us keep building great open-source tools for the Minecraft community.<br>Every donation helps us cover hosting, development, and support.</p>
+            <div class="donate-buttons">
+                <a href="https://ko-fi.com/yourkofi" class="donate-btn kofi" target="_blank" rel="noopener">Donate via Ko-fi</a>
+                <a href="https://www.buymeacoffee.com/yourbmc" class="donate-btn bmc" target="_blank" rel="noopener">Buy Me a Coffee</a>
+            </div>
         </section>
     </main>
     <script>
