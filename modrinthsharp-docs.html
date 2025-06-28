@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ModrinthSharp Documentation | MatriX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #10131a 70%, #0078d7 200%);
+            color: #eaf6ff;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+            margin: 0;
+            font-size: 1.07em;
+            letter-spacing: 0.01em;
+        }
+        .modrinth-header {
+            background: linear-gradient(120deg, #232323 60%, #0078d7 120%);
+            padding: 54px 0 28px 0;
+            text-align: center;
+            box-shadow: 0 4px 32px #0078d733;
+            border-bottom: 1.5px solid #23293a;
+            position: relative;
+        }
+        .modrinth-header::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 40% at 60% 30%, #0078d744 0%, transparent 80%),
+                        radial-gradient(ellipse 40% 30% at 30% 70%, #00e0ff22 0%, transparent 80%);
+            filter: blur(32px) brightness(1.1);
+            opacity: 0.7;
+            z-index: 0;
+        }
+        .modrinth-header h1 {
+            font-size: 2.7em;
+            color: #fff;
+            margin: 0 0 8px 0;
+            font-weight: 900;
+            letter-spacing: 2px;
+            z-index: 1;
+            position: relative;
+        }
+        .modrinth-header p {
+            font-size: 1.13em;
+            color: #b0e0ff;
+            margin: 0 0 4px 0;
+            z-index: 1;
+            position: relative;
+        }
+        .modrinth-layout {
+            display: flex;
+            flex-direction: row;
+            min-height: 100vh;
+            background: none;
+        }
+        .modrinth-sidebar {
+            width: 250px;
+            background: #181c24cc;
+            border-right: 1.5px solid #23293a;
+            padding: 40px 0 40px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 20;
+            box-shadow: 2px 0 24px #0078d722;
+        }
+        .modrinth-sidebar nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding-left: 28px;
+        }
+        .modrinth-sidebar a {
+            color: #7ecbff;
+            text-decoration: none;
+            font-size: 1.08em;
+            padding: 8px 0 8px 10px;
+            border-radius: 6px 0 0 6px;
+            transition: background 0.18s, color 0.18s;
+            margin-bottom: 2px;
+        }
+        .modrinth-sidebar a:hover, .modrinth-sidebar a.active {
+            background: #23293a;
+            color: #fff;
+        }
+        .modrinth-content {
+            width: 100vw;
+            max-width: 1500px;
+            margin: 0 0 0 0;
+            background: #181c24cc;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 8px 40px #0078d722;
+            padding: 38px 38px 48px 38px;
+            margin-top: -24px;
+            flex: 1 1 auto;
+        }
+        .modrinth-content h2 {
+            color: #7ecbff;
+            margin-top: 38px;
+            font-size: 1.35em;
+            border-bottom: 1px solid #23293a;
+            padding-bottom: 4px;
+            margin-bottom: 18px;
+            font-weight: 700;
+        }
+        .modrinth-content h3 {
+            color: #4db3ff;
+            margin-top: 22px;
+            font-size: 1.12em;
+            font-weight: 600;
+        }
+        .modrinth-content pre, .modrinth-content code {
+            background: #23293a;
+            color: #b0e0ff;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 1em;
+            overflow-x: auto;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            display: block;
+            white-space: pre;
+            box-shadow: 0 2px 16px #0078d722;
+        }
+        .modrinth-content pre {
+            margin: 16px 0 28px 0;
+            position: relative;
+            background: #23293a;
+        }
+        .modrinth-content .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1a1e2a;
+            color: #7ecbff;
+            font-size: 0.98em;
+            font-family: 'Fira Mono', 'Consolas', monospace;
+            border-radius: 10px 10px 0 0;
+            padding: 4px 14px 3px 14px;
+            border-bottom: 1px solid #23293a;
+            user-select: none;
+        }
+        .modrinth-content .code-header .code-index {
+            font-weight: 600;
+            opacity: 0.8;
+        }
+        .modrinth-content .copy-btn {
+            background: #23293a;
+            color: #7ecbff;
+            border: none;
+            border-radius: 5px;
+            padding: 2px 10px;
+            font-size: 0.97em;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .modrinth-content .copy-btn:hover {
+            background: #0078d7;
+            color: #fff;
+        }
+        .modrinth-content pre code {
+            display: block;
+            padding: 0;
+            margin: 0;
+            background: none;
+            border-radius: 0 0 10px 10px;
+        }
+        .modrinth-content ul {
+            margin-left: 22px;
+            padding-left: 0;
+        }
+        .modrinth-content li {
+            margin-bottom: 6px;
+            line-height: 1.7;
+        }
+        .modrinth-content .section {
+            margin-bottom: 34px;
+        }
+        .modrinth-content .example-output {
+            background: #1a1e2a;
+        }
+        .modrinth-content .license {
+            color: #b0e0ff;
+            font-size: 1.08em;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .modrinth-nav { display: none !important; }
+        .sidebar-toggle-btn { display: none; }
+        @media (max-width: 1000px) { .modrinth-sidebar { width: 100vw; position: static; height: auto; } }
+        @media (max-width: 700px) { .modrinth-content { padding: 12px; } }
+        @media (max-width: 500px) { .modrinth-content { padding: 2px; } }
+        .section-divider {
+            width: 100%;
+            height: 18px;
+            background: linear-gradient(90deg, #23293a00 0%, #23293a44 50%, #23293a00 100%);
+            margin: 32px 0 32px 0;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="modrinth-header">
+        <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
+            <img src="Icons/placeholder.png" alt="ModrinthSharp Icon" style="width:54px;height:54px;filter:drop-shadow(0 2px 8px #0078d755);margin-right:12px;">
+            <h1>ModrinthSharp</h1>
+        </div>
+        <p>.NET 8 library for accessing the Modrinth API in C#. Search, retrieve, and analyze Modrinth projects, versions, users, and more.</p>
+    </div>
+    <div class="modrinth-layout">
+        <aside class="modrinth-sidebar" id="sidebarNav">
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#installation">Installation</a>
+                <a href="#usage">Usage</a>
+                <a href="#modelref">Model Reference</a>
+                <a href="#license">License</a>
+            </nav>
+        </aside>
+        <div class="modrinth-content">
+            <div class="section" id="features">
+                <h2>Features</h2>
+                <ul>
+                    <li>Search for Modrinth projects with advanced filters</li>
+                    <li>Get detailed project info by ID or slug</li>
+                    <li>List all versions of a project</li>
+                    <li>Get version details and files</li>
+                    <li>Download project files</li>
+                    <li>Get user and team info</li>
+                    <li>Fetch project dependencies</li>
+                    <li>Strongly-typed models for all major Modrinth API objects</li>
+                    <li>Robust error handling with API error details</li>
+                </ul>
+            </div>
+            <div class="section-divider"></div>
+            <div class="section" id="installation">
+                <h2>Installation</h2>
+                <p>Add the ModrinthSharp project to your solution or reference the DLL. Target .NET 8 or later.</p>
+            </div>
+            <div class="section-divider"></div>
+            <div class="section" id="usage">
+                <h2>Usage</h2>
+                <h3>Creating a Client</h3>
+                <pre><code>using ModrinthSharp;
+
+var modrinth = new ModrinthSharp();
+</code></pre>
+                <h3>Async Usage</h3>
+                <pre><code>using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        var modrinth = new ModrinthSharp();
+        // ... call methods below ...
+    }
+}
+</code></pre>
+                <h3>Search for Projects</h3>
+                <pre><code>var results = await modrinth.SearchProjectsAsync("sodium");
+foreach (var project in results.Hits)
+{
+    Console.WriteLine($"{project.Title} ({project.Slug})");
+}
+</code></pre>
+                <h3>Advanced Search</h3>
+                <pre><code>var advanced = await modrinth.SearchProjectsAdvancedAsync(
+    query: "optimization",
+    categories: new[] { "performance" },
+    loaders: new[] { "fabric" },
+    gameVersions: new[] { "1.20.1" }
+);
+foreach (var project in advanced.Hits)
+{
+    Console.WriteLine($"{project.Title} - {project.Downloads} downloads");
+}
+</code></pre>
+                <h3>Get Project by ID or Slug</h3>
+                <pre><code>var project = await modrinth.GetProjectAsync("sodium");
+Console.WriteLine($"{project.Title}: {project.Description}");
+</code></pre>
+                <h3>List Project Versions</h3>
+                <pre><code>var versions = await modrinth.GetProjectVersionsAsync("sodium");
+foreach (var version in versions)
+{
+    Console.WriteLine($"{version.Name} ({version.VersionNumber})");
+}
+</code></pre>
+                <h3>Get Version Details and Files</h3>
+                <pre><code>var version = await modrinth.GetVersionAsync(versions[0].Id);
+var files = await modrinth.GetVersionFilesAsync(version.Id);
+foreach (var file in files)
+{
+    Console.WriteLine($"File: {file.Filename} ({file.Size} bytes)");
+}
+</code></pre>
+                <h3>Download a File</h3>
+                <pre><code>await modrinth.DownloadFileAsync(files[0].Url, @"C:\\Downloads\\" + files[0].Filename);
+</code></pre>
+                <h3>Get User and Team Info</h3>
+                <pre><code>var user = await modrinth.GetUserAsync("johndoe");
+Console.WriteLine($"User: {user.Username} ({user.Id})");
+
+var team = await modrinth.GetTeamAsync("teamid");
+Console.WriteLine($"Team: {team.Name}");
+</code></pre>
+                <h3>Get Project Dependencies</h3>
+                <pre><code>var dependencies = await modrinth.GetProjectDependenciesAsync("sodium");
+foreach (var dep in dependencies)
+{
+    Console.WriteLine($"Depends on: {dep.ProjectId} ({dep.DependencyType})");
+}
+</code></pre>
+                <h3>Error Handling</h3>
+                <p>All methods throw <code>ModrinthApiException</code> on API errors, which includes the HTTP status and any error message from Modrinth.</p>
+                <pre><code>try
+{
+    var project = await modrinth.GetProjectAsync("nonexistent_project");
+}
+catch (ModrinthApiException ex)
+{
+    Console.WriteLine($"API Error: {ex.StatusCode} - {ex.ApiError}");
+}
+</code></pre>
+                <h3>Complete Example</h3>
+                <pre><code>using ModrinthSharp;
+using System;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        var modrinth = new ModrinthSharp();
+        var results = await modrinth.SearchProjectsAsync("sodium");
+        var project = await modrinth.GetProjectAsync(results.Hits[0].Slug);
+        var versions = await modrinth.GetProjectVersionsAsync(project.Id);
+        var version = await modrinth.GetVersionAsync(versions[0].Id);
+        var files = await modrinth.GetVersionFilesAsync(version.Id);
+        await modrinth.DownloadFileAsync(files[0].Url, @"C:\\Downloads\\" + files[0].Filename);
+        Console.WriteLine($"Downloaded {files[0].Filename} for {project.Title}");
+    }
+}
+</code></pre>
+            </div>
+            <div class="section-divider"></div>
+            <div class="section" id="modelref">
+                <h2>Model Reference</h2>
+                <ul>
+                    <li><b>ModrinthProject</b>: All project metadata (title, description, downloads, categories, etc.)</li>
+                    <li><b>ModrinthVersion</b>: Version info (name, changelog, supported game versions, loaders, etc.)</li>
+                    <li><b>ModrinthFile</b>: File info (filename, size, URL, hashes, etc.)</li>
+                    <li><b>User</b>, <b>Team</b>: User/team info</li>
+                    <li><b>Dependency</b>: Project dependencies</li>
+                    <li><b>SearchResult</b>: Search results (list of projects, total hits, etc.)</li>
+                </ul>
+            </div>
+            <div class="section-divider"></div>
+            <div class="license" id="license">
+                MIT License
+            </div>
+        </div>
+    </div>
+</body>
+</html>
