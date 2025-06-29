@@ -191,6 +191,7 @@
         @media (max-width: 1000px) { .modrinth-sidebar { width: 100vw; position: static; height: auto; } }
         @media (max-width: 700px) { .modrinth-content { padding: 12px; } }
         @media (max-width: 500px) { .modrinth-content { padding: 2px; } }
+        /* Section Divider Styles */
         .section-divider {
             width: 100%;
             height: 18px;
@@ -198,9 +199,86 @@
             margin: 32px 0 32px 0;
             border: none;
         }
+        .breadcrumb-nav {
+            font-size: 1.04em;
+            color: #7ecbff;
+            margin-bottom: 0;
+            letter-spacing: 0.01em;
+        }
+        .breadcrumb-nav span { color: #7ecbff; }
+        @media (max-width: 700px) {
+            .breadcrumb-nav { padding: 10px 1vw 0 1vw; font-size: 0.97em; }
+        }
+        @media (max-width: 1000px) {
+            .sidebar-search-container { padding: 0 8px 8px 8px; }
+        }
+        /* Hide sidebar scrollbar */
+        .modrinth-sidebar {
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
+        }
+        .modrinth-sidebar::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        .sidebar-expander {
+            background: none;
+            border: none;
+            color: inherit;
+            font: inherit;
+            padding: 8px 0 8px 10px;
+            text-align: left;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.08em;
+            border-radius: 6px 0 0 6px;
+            margin-bottom: 2px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .sidebar-expander:hover, .sidebar-expander[aria-expanded="true"] {
+            background: #23293a;
+            color: #fff;
+        }
+        .sidebar-expander .arrow {
+            font-size: 0.95em;
+            margin-left: 2px;
+            opacity: 0.7;
+        }
+        .sidebar-expander-links {
+            display: block;
+            padding-left: 18px;
+            margin-bottom: 2px;
+        }
+        .sidebar-expander-links a {
+            display: block;
+            padding: 6px 0 6px 10px;
+            font-size: 1.04em;
+            color: #7ecbff;
+            border-radius: 6px 0 0 6px;
+            text-decoration: none;
+            margin-bottom: 1px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .sidebar-expander-links a:hover, .sidebar-expander-links a.active {
+            background: #23293a;
+            color: #fff;
+        }
+        @media (max-width: 1000px) {
+            .sidebar-expander-links { padding-left: 8px; }
+        }
+        @media (max-width: 700px) {
+            .sidebar-expander-links { padding-left: 4px; }
+        }
     </style>
 </head>
 <body>
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" aria-label="Back to top" style="display:none;position:fixed;bottom:32px;right:32px;z-index:999;background:#0078d7;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.7em;box-shadow:0 2px 16px #0078d799;cursor:pointer;transition:background 0.18s;">↑</button>
+    <!-- Breadcrumb Navigation (hidden by default) -->
+    <nav class="breadcrumb-nav" id="breadcrumbTrail" aria-label="Breadcrumb" style="margin:0 auto;max-width:1500px;padding:18px 38px 0 38px;font-size:1em;color:#7ecbff;display:none;"></nav>
     <div class="modrinth-header">
         <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
             <img src="Icons/placeholder.png" alt="ModrinthSharp Icon" style="width:54px;height:54px;filter:drop-shadow(0 2px 8px #0078d755);margin-right:12px;">
@@ -210,11 +288,39 @@
     </div>
     <div class="modrinth-layout">
         <aside class="modrinth-sidebar" id="sidebarNav">
+            <div class="sidebar-search-container" style="padding:0 18px 18px 18px;">
+                <input id="sidebarSearch" type="text" placeholder="Filter API..." style="width:90%;padding:7px 10px;border-radius:6px;border:1px solid #23293a;background:#23293a;color:#b0e0ff;font-size:1em;outline:none;">
+            </div>
             <nav>
                 <a href="#features">Features</a>
                 <a href="#installation">Installation</a>
-                <a href="#usage">Usage</a>
-                <a href="#modelref">Model Reference</a>
+                <button class="sidebar-expander" aria-expanded="true" type="button" style="background:none;border:none;color:inherit;font:inherit;padding:8px 0 8px 10px;text-align:left;cursor:pointer;width:100%;display:flex;align-items:center;gap:6px;">Usage <span class="arrow">▼</span></button>
+                <div class="sidebar-expander-links">
+                    <a href="#usage">Overview</a>
+                    <a href="#creating-a-client">Creating a Client</a>
+                    <a href="#async-usage">Async Usage</a>
+                    <a href="#search-for-projects">Search for Projects</a>
+                    <a href="#advanced-search">Advanced Search</a>
+                    <a href="#get-project-by-id-or-slug">Get Project by ID or Slug</a>
+                    <a href="#list-project-versions">List Project Versions</a>
+                    <a href="#get-version-details-and-files">Get Version Details and Files</a>
+                    <a href="#download-a-file">Download a File</a>
+                    <a href="#get-user-and-team-info">Get User and Team Info</a>
+                    <a href="#get-project-dependencies">Get Project Dependencies</a>
+                    <a href="#error-handling">Error Handling</a>
+                    <a href="#complete-example">Complete Example</a>
+                </div>
+                <button class="sidebar-expander" aria-expanded="true" type="button" style="background:none;border:none;color:inherit;font:inherit;padding:8px 0 8px 10px;text-align:left;cursor:pointer;width:100%;display:flex;align-items:center;gap:6px;">Model Reference <span class="arrow">▼</span></button>
+                <div class="sidebar-expander-links">
+                    <a href="#modelref">Overview</a>
+                    <a href="#modrinthproject">ModrinthProject</a>
+                    <a href="#modrinthversion">ModrinthVersion</a>
+                    <a href="#modrinthfile">ModrinthFile</a>
+                    <a href="#user">User</a>
+                    <a href="#team">Team</a>
+                    <a href="#dependency">Dependency</a>
+                    <a href="#searchresult">SearchResult</a>
+                </div>
                 <a href="#license">License</a>
             </nav>
         </aside>
@@ -363,5 +469,130 @@ class Program
             </div>
         </div>
     </div>
+    <script>
+(function() {
+    // --- Back to Top Button ---
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 200) {
+            backToTopBtn.style.display = 'block';
+        } else {
+            backToTopBtn.style.display = 'none';
+        }
+    });
+    backToTopBtn.onclick = function() {
+        window.scrollTo({top:0,behavior:'smooth'});
+    };
+
+    // --- Breadcrumb Navigation ---
+    const breadcrumbTrail = document.getElementById('breadcrumbTrail');
+    const sectionMap = Array.from(document.querySelectorAll('.section')).map(sec => ({
+        id: sec.id,
+        name: sec.querySelector('h2') ? sec.querySelector('h2').textContent : sec.id
+    }));
+    function updateBreadcrumb() {
+        let current = sectionMap[0];
+        for (const sec of sectionMap) {
+            const el = document.getElementById(sec.id);
+            if (el && el.getBoundingClientRect().top < 120) {
+                current = sec;
+            }
+        }
+        let trail = 'Docs';
+        if (current.id !== 'features') trail += ' > ' + current.name;
+        breadcrumbTrail.textContent = trail;
+    }
+    window.addEventListener('scroll', updateBreadcrumb);
+    document.addEventListener('DOMContentLoaded', updateBreadcrumb);
+
+    // --- Section Highlighting in Sidebar ---
+    const sidebarLinks = Array.from(document.querySelectorAll('.modrinth-sidebar nav a'));
+    function highlightSidebar() {
+        let current = null;
+        for (const link of sidebarLinks) {
+            const sec = document.getElementById(link.getAttribute('href').substring(1));
+            if (sec && sec.getBoundingClientRect().top < 120) {
+                current = link;
+            }
+        }
+        sidebarLinks.forEach(l => l.classList.remove('active'));
+        if (current) current.classList.add('active');
+    }
+    window.addEventListener('scroll', highlightSidebar);
+    document.addEventListener('DOMContentLoaded', highlightSidebar);
+
+    // --- Sidebar Expanders ---
+    const expanders = document.querySelectorAll('.sidebar-expander');
+    expanders.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            const expanded = btn.getAttribute('aria-expanded') === 'true';
+            btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+            btn.querySelector('.arrow').textContent = expanded ? '▶' : '▼';
+            const links = btn.nextElementSibling;
+            if (links) links.style.display = expanded ? 'none' : '';
+        });
+    });
+
+    // --- Sidebar Search/Filter for API Methods (updated for expanders) ---
+    const sidebarSearch = document.getElementById('sidebarSearch');
+    sidebarSearch.addEventListener('input', function() {
+        const q = sidebarSearch.value.trim().toLowerCase();
+        document.querySelectorAll('.modrinth-sidebar nav > a, .sidebar-expander, .sidebar-expander-links a').forEach(link => {
+            if (!q) {
+                link.style.display = '';
+                if (link.classList.contains('sidebar-expander')) {
+                    link.setAttribute('aria-expanded', 'true');
+                    const links = link.nextElementSibling;
+                    if (links) links.style.display = '';
+                }
+            } else {
+                const text = link.textContent.toLowerCase();
+                if (link.classList.contains('sidebar-expander')) {
+                    // Show expander if any child matches
+                    const links = link.nextElementSibling;
+                    let anyChild = false;
+                    if (links) {
+                        links.querySelectorAll('a').forEach(child => {
+                            if (child.textContent.toLowerCase().includes(q)) {
+                                child.style.display = '';
+                                anyChild = true;
+                            } else {
+                                child.style.display = 'none';
+                            }
+                        });
+                    }
+                    link.style.display = anyChild ? '' : 'none';
+                    if (links) links.style.display = anyChild ? '' : 'none';
+                } else if (link.matches('a')) {
+                    link.style.display = text.includes(q) ? '' : 'none';
+                }
+            }
+        });
+    });
+
+    // --- Improved Code Block Features ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const codeBlocks = document.querySelectorAll('.modrinth-content pre code');
+        let codeIndex = 1;
+        codeBlocks.forEach(function(code) {
+            const pre = code.parentNode;
+            // Add code header
+            const header = document.createElement('div');
+            header.className = 'code-header';
+            header.innerHTML = `<span class="code-index">Code #${codeIndex++}</span> <button class="copy-btn">Copy</button>`;
+            pre.parentNode.insertBefore(header, pre);
+            // Copy button logic
+            header.querySelector('.copy-btn').onclick = function() {
+                navigator.clipboard.writeText(code.textContent);
+                this.textContent = 'Copied!';
+                setTimeout(() => { this.textContent = 'Copy'; }, 1200);
+            };
+        });
+    });
+
+    // --- Sidebar Toggle for Mobile (with swipe) ---
+    // (Optional: add toggle button if needed in the future)
+})();
+</script>
 </body>
 </html>
