@@ -55,7 +55,7 @@
             min-height: 100vh;
             background: none;
         }
-        .drmod-sidebar {
+        .drmod-sidebar, .modrinth-sidebar {
             width: 250px;
             background: #181c24cc;
             border-right: 1.5px solid #23293a;
@@ -66,6 +66,26 @@
             overflow-y: auto;
             z-index: 20;
             box-shadow: 2px 0 24px #0078d722;
+            resize: none;
+            min-width: 160px;
+            max-width: 480px;
+            transition: width 0.18s;
+        }
+        .sidebar-resize-handle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 100%;
+            cursor: ew-resize;
+            background: linear-gradient(90deg, #23293a00 0%, #0078d7 100%);
+            z-index: 99;
+            border-radius: 0 6px 6px 0;
+            transition: background 0.18s;
+        }
+        .sidebar-resize-handle:hover, .sidebar-resize-handle:focus {
+            background: #0078d7;
+            outline: 2px solid #00e0ff;
         }
         .drmod-sidebar nav {
             display: flex;
@@ -346,7 +366,8 @@
         <p>.NET 8 library for analyzing, validating, and managing Minecraft mods for Forge, NeoForge, Fabric, and Quilt.</p>
     </div>
     <div class="drmod-layout">
-        <aside class="drmod-sidebar" id="sidebarNav">
+        <aside class="drmod-sidebar" id="sidebarNav" aria-label="Documentation Sidebar" tabindex="0">
+            <div class="sidebar-resize-handle" id="sidebarResizeHandle" tabindex="0" aria-label="Resize sidebar" role="separator"></div>
             <div class="sidebar-search-container" style="padding:0 18px 8px 18px;">
                 <input id="sidebarSearch" type="text" placeholder="Filter API methods..." style="width:100%;padding:7px 10px;border-radius:6px;border:1px solid #23293a;background:#23293a;color:#7ecbff;font-size:1em;outline:none;" />
             </div>
@@ -1066,6 +1087,50 @@ class Program
             touchStartX = null;
         });
     }
+
+    // --- Sidebar Resizing ---
+    (function() {
+    const sidebar = document.getElementById('sidebarNav');
+    const handle = document.getElementById('sidebarResizeHandle');
+    let isResizing = false;
+    let startX, startWidth;
+    // Load width from localStorage
+    const savedWidth = localStorage.getItem('sidebarWidth');
+    if (savedWidth) sidebar.style.width = savedWidth;
+    handle.addEventListener('mousedown', function(e) {
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = sidebar.offsetWidth;
+        document.body.style.cursor = 'ew-resize';
+        e.preventDefault();
+    });
+    document.addEventListener('mousemove', function(e) {
+        if (!isResizing) return;
+        let newWidth = Math.max(160, Math.min(480, startWidth + (e.clientX - startX)));
+        sidebar.style.width = newWidth + 'px';
+    });
+    document.addEventListener('mouseup', function(e) {
+        if (isResizing) {
+            isResizing = false;
+            localStorage.setItem('sidebarWidth', sidebar.style.width);
+            document.body.style.cursor = '';
+        }
+    });
+    // Keyboard accessibility: left/right arrow to resize
+    handle.addEventListener('keydown', function(e) {
+        let width = sidebar.offsetWidth;
+        if (e.key === 'ArrowLeft') {
+            width = Math.max(160, width - 16);
+            sidebar.style.width = width + 'px';
+            localStorage.setItem('sidebarWidth', sidebar.style.width);
+            e.preventDefault();
+        } else if (e.key === 'ArrowRight') {
+            width = Math.min(480, width + 16);
+            sidebar.style.width = width + 'px';
+            localStorage.setItem('sidebarWidth', sidebar.style.width);
+            e.preventDefault();
+        }
+    });
 })();
 </script>
 <style>
