@@ -2,9 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ModrinthSharp Documentation | MatriX</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>ModrinthSharp Documentation - MatriX Development Tools</title>
+    <meta name="description" content="Complete documentation for ModrinthSharp - a powerful .NET library for interacting with the Modrinth API.">
+    <meta name="keywords" content="ModrinthSharp, .NET, C#, Modrinth, API, Minecraft, Mods, Documentation">
+    <meta name="author" content="MatriX Team">
+    <meta name="theme-color" content="#3b82f6">
+    <meta name="color-scheme" content="light dark">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Icons/ModrinthSharpIcon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/docs.css">
+</head>
     <style>
         body {
             background: linear-gradient(120deg, #10131a 70%, #0078d7 200%);
@@ -298,17 +318,818 @@
     </style>
 </head>
 <body>
-    <!-- Back to Top Button -->
-    <button id="backToTopBtn" aria-label="Back to top" style="display:none;position:fixed;bottom:32px;right:32px;z-index:999;background:#0078d7;color:#fff;border:none;border-radius:50%;width:48px;height:48px;font-size:1.7em;box-shadow:0 2px 16px #0078d799;cursor:pointer;transition:background 0.18s;">↑</button>
-    <!-- Breadcrumb Navigation (hidden by default) -->
-    <nav class="breadcrumb-nav" id="breadcrumbTrail" aria-label="Breadcrumb" style="margin:0 auto;max-width:1500px;padding:18px 38px 0 38px;font-size:1em;color:#7ecbff;display:none;"></nav>
-    <div class="modrinth-header">
-        <div style="display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;">
-            <img src="Icons/ModrinthSharpIcon.png" alt="ModrinthSharp Icon" style="width:54px;height:54px;filter:drop-shadow(0 2px 8px #0078d755);margin-right:12px;">
-            <h1>ModrinthSharp</h1>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="Icons/MatriX.png" alt="MatriX" class="nav-logo">
+                <span class="nav-title">MatriX</span>
+                <span class="nav-version">v2.0</span>
+            </div>
+            
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="index.html#products" class="nav-link">Products</a>
+                <a href="drmod-docs.html" class="nav-link">DrMod Docs</a>
+                <a href="modrinthsharp-docs.html" class="nav-link active">ModrinthSharp Docs</a>
+                <a href="index.html#community" class="nav-link">Community</a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+                    <i data-lucide="sun" class="theme-icon light-icon"></i>
+                    <i data-lucide="moon" class="theme-icon dark-icon"></i>
+                </button>
+                <a href="https://github.com/Shlomo1412" class="nav-github" target="_blank" rel="noopener">
+                    <i data-lucide="github"></i>
+                </a>
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
         </div>
-        <p>.NET 8 library for accessing the Modrinth API in C#. Search, retrieve, and analyze Modrinth projects, versions, users, and more.</p>
+    </nav>
+
+    <!-- Documentation Header -->
+    <section class="docs-header">
+        <div class="docs-header-content">
+            <img src="Icons/ModrinthSharpIcon.png" alt="ModrinthSharp Icon" class="docs-icon">
+            <h1 class="docs-title">ModrinthSharp Documentation</h1>
+            <p class="docs-description">
+                A powerful .NET 8 library for seamless integration with the Modrinth API. 
+                Search, retrieve, and analyze Modrinth projects, versions, users, and more.
+            </p>
+            <div class="docs-version">
+                <i data-lucide="package"></i>
+                <span>Latest Version: 1.5.0</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation Layout -->
+    <div class="docs-layout">
+        <!-- Sidebar -->
+        <aside class="docs-sidebar">
+            <div class="sidebar-search">
+                <input type="text" placeholder="Search documentation..." id="sidebar-search">
+            </div>
+            
+            <nav class="sidebar-nav">
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Getting Started</div>
+                    <a href="#overview" class="sidebar-link">
+                        <i data-lucide="book-open"></i>
+                        Overview
+                    </a>
+                    <a href="#installation" class="sidebar-link">
+                        <i data-lucide="download"></i>
+                        Installation
+                    </a>
+                    <a href="#usage" class="sidebar-link">
+                        <i data-lucide="play"></i>
+                        Basic Usage
+                    </a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Projects</div>
+                    <a href="#SearchProjectsAsync" class="sidebar-link">SearchProjectsAsync</a>
+                    <a href="#SearchProjectsAdvancedAsync" class="sidebar-link">SearchProjectsAdvancedAsync</a>
+                    <a href="#GetProjectAsync" class="sidebar-link">GetProjectAsync</a>
+                    <a href="#GetRandomProjectsAsync" class="sidebar-link">GetRandomProjectsAsync</a>
+                    <a href="#HelperMethods" class="sidebar-link">Random Project Helpers</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Versions & Files</div>
+                    <a href="#GetProjectVersionsAsync" class="sidebar-link">GetProjectVersionsAsync</a>
+                    <a href="#GetVersionAsync" class="sidebar-link">GetVersionAsync</a>
+                    <a href="#GetVersionFilesAsync" class="sidebar-link">GetVersionFilesAsync</a>
+                    <a href="#DownloadFileAsync" class="sidebar-link">DownloadFileAsync</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Users & Teams</div>
+                    <a href="#GetUserAsync" class="sidebar-link">GetUserAsync</a>
+                    <a href="#GetTeamAsync" class="sidebar-link">GetTeamAsync</a>
+                    <a href="#GetProjectDependenciesAsync" class="sidebar-link">GetProjectDependenciesAsync</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Error Handling</div>
+                    <a href="#ErrorHandling" class="sidebar-link">ModrinthApiException</a>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-section-title">Resources</div>
+                    <a href="#examples" class="sidebar-link">
+                        <i data-lucide="code-2"></i>
+                        Examples
+                    </a>
+                    <a href="#license" class="sidebar-link">
+                        <i data-lucide="file-text"></i>
+                        License
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="docs-content">
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="index.html">Home</a> > <a href="modrinthsharp-docs.html">ModrinthSharp Documentation</a>
+            </nav>
+
+            <!-- Overview Section -->
+            <section id="overview">
+                <h1>ModrinthSharp Library Overview</h1>
+                <p>
+                    ModrinthSharp is a comprehensive .NET 8 library that provides a simple and powerful interface 
+                    to the Modrinth API. Whether you're building mod managers, server tools, or analytics platforms, 
+                    ModrinthSharp gives you full access to Modrinth's extensive ecosystem of Minecraft mods, modpacks, 
+                    resource packs, and shaders.
+                </p>
+                
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Complete API Coverage:</strong> Access all Modrinth API endpoints with type-safe methods</li>
+                    <li><strong>Async/Await Support:</strong> Built from the ground up with modern async patterns</li>
+                    <li><strong>Rich Search Capabilities:</strong> Advanced filtering, sorting, and faceted search</li>
+                    <li><strong>Rate Limiting:</strong> Built-in respect for API rate limits</li>
+                    <li><strong>Automatic Retries:</strong> Handles transient failures gracefully</li>
+                    <li><strong>Strongly Typed:</strong> Full IntelliSense support with comprehensive models</li>
+                    <li><strong>Caching Support:</strong> Optional caching for improved performance</li>
+                </ul>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Installation Section -->
+            <section id="installation">
+                <h2>Installation</h2>
+                
+                <div class="installation-step">
+                    <h3><span class="step-number">1</span>Install via NuGet Package Manager</h3>
+                    <p>Use the Package Manager Console in Visual Studio:</p>
+                    <pre><code>Install-Package ModrinthSharp</code></pre>
+                </div>
+
+                <div class="installation-step">
+                    <h3><span class="step-number">2</span>Install via .NET CLI</h3>
+                    <p>Use the command line interface:</p>
+                    <pre><code>dotnet add package ModrinthSharp</code></pre>
+                </div>
+
+                <div class="installation-step">
+                    <h3><span class="step-number">3</span>Add PackageReference</h3>
+                    <p>Add directly to your .csproj file:</p>
+                    <pre><code>&lt;PackageReference Include="ModrinthSharp" Version="1.5.0" /&gt;</code></pre>
+                </div>
+
+                <h3>Requirements</h3>
+                <ul>
+                    <li>.NET 8.0 or later</li>
+                    <li>Active internet connection for API calls</li>
+                    <li>Optional: Modrinth API key for authenticated requests</li>
+                </ul>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Usage Section -->
+            <section id="usage">
+                <h2>Basic Usage</h2>
+                
+                <h3>Creating a Client</h3>
+                <p>Start by creating a ModrinthSharp client instance:</p>
+                <pre><code>using ModrinthSharp;
+
+// Create a basic client
+var modrinth = new ModrinthSharp();</code></pre>
+
+                <h3>Async Usage</h3>
+                <p>All methods are async and should be used in an async context:</p>
+                <pre><code>using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        var modrinth = new ModrinthSharp();
+        // ... call methods below ...
+    }
+}</code></pre>
+
+                <h3>Search for Projects</h3>
+                <p>Search the Modrinth database with simple or advanced queries:</p>
+                <pre><code>// Basic search
+var results = await modrinth.SearchProjectsAsync("sodium");
+foreach (var project in results.Hits)
+{
+    Console.WriteLine($"{project.Title} ({project.Slug})");
+}
+
+// Advanced search with filters
+var advanced = await modrinth.SearchProjectsAdvancedAsync(
+    query: "optimization",
+    categories: new[] { "performance" },
+    loaders: new[] { "fabric" },
+    gameVersions: new[] { "1.20.1" }
+);
+foreach (var project in advanced.Hits)
+{
+    Console.WriteLine($"{project.Title} - {project.Downloads} downloads");
+}</code></pre>
+
+                <h3>Get Random Projects</h3>
+                <p>Discover new content with random project methods:</p>
+                <pre><code>// Get 10 random projects of any type
+var randomProjects = await modrinth.GetRandomProjectsAsync(10);
+
+// Get specific types
+var randomMods = await modrinth.GetRandomModsAsync(5);
+var randomShaders = await modrinth.GetRandomShadersAsync(3);</code></pre>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- API Methods -->
+            <section id="api-methods">
+                <h2>API Reference</h2>
+
+                <!-- SearchProjectsAsync -->
+                <div class="api-method" id="SearchProjectsAsync">
+                    <h3>SearchProjectsAsync(string query)</h3>
+                    <div class="method-signature">Returns: Task&lt;SearchResult&gt;</div>
+                    <p>Search for projects on Modrinth with a simple query string.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var results = await modrinth.SearchProjectsAsync("sodium");
+foreach (var project in results.Hits)
+{
+    Console.WriteLine($"{project.Title} ({project.Slug})");
+}</code></pre>
+                </div>
+
+                <!-- SearchProjectsAdvancedAsync -->
+                <div class="api-method" id="SearchProjectsAdvancedAsync">
+                    <h3>SearchProjectsAdvancedAsync(string query, ...)</h3>
+                    <div class="method-signature">Returns: Task&lt;SearchResult&gt;</div>
+                    <p>Search with advanced filters including categories, loaders, and game versions.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var advanced = await modrinth.SearchProjectsAdvancedAsync(
+    query: "optimization",
+    categories: new[] { "performance" },
+    loaders: new[] { "fabric" },
+    gameVersions: new[] { "1.20.1" }
+);
+foreach (var project in advanced.Hits)
+{
+    Console.WriteLine($"{project.Title} - {project.Downloads} downloads");
+}</code></pre>
+                </div>
+
+                <!-- GetRandomProjectsAsync -->
+                <div class="api-method" id="GetRandomProjectsAsync">
+                    <h3>GetRandomProjectsAsync(int count, string projectType = null)</h3>
+                    <div class="method-signature">Returns: Task&lt;List&lt;ModrinthProject&gt;&gt;</div>
+                    <p>Get a list of random projects from Modrinth, optionally filtered by project type.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>// Get 10 random projects of any type
+var randomProjects = await modrinth.GetRandomProjectsAsync(10);
+foreach (var project in randomProjects) 
+{ 
+    Console.WriteLine($"{project.Title} ({project.ProjectType}) - {project.Downloads} downloads"); 
+}
+
+// Get random projects filtered by type 
+var randomMods = await modrinth.GetRandomProjectsAsync(15, "mod"); 
+var randomModpacks = await modrinth.GetRandomProjectsAsync(5, "modpack");
+
+// Helper methods for specific project types
+var randomMods = await modrinth.GetRandomModsAsync(10); 
+var randomShaders = await modrinth.GetRandomShadersAsync(5); 
+var randomResourcePacks = await modrinth.GetRandomResourcePacksAsync(8); 
+var randomModpacks = await modrinth.GetRandomModpacksAsync(3);</code></pre>
+                </div>
+
+                <!-- GetProjectAsync -->
+                <div class="api-method" id="GetProjectAsync">
+                    <h3>GetProjectAsync(string idOrSlug)</h3>
+                    <div class="method-signature">Returns: Task&lt;ModrinthProject&gt;</div>
+                    <p>Get detailed information about a specific project by ID or slug.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var project = await modrinth.GetProjectAsync("sodium");
+Console.WriteLine($"{project.Title}: {project.Description}");</code></pre>
+                </div>
+
+                <!-- GetProjectVersionsAsync -->
+                <div class="api-method" id="GetProjectVersionsAsync">
+                    <h3>GetProjectVersionsAsync(string projectId)</h3>
+                    <div class="method-signature">Returns: Task&lt;List&lt;ModrinthVersion&gt;&gt;</div>
+                    <p>Get all versions for a specific project.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var versions = await modrinth.GetProjectVersionsAsync("sodium");
+foreach (var version in versions)
+{
+    Console.WriteLine($"{version.Name} ({version.VersionNumber})");
+}</code></pre>
+                </div>
+
+                <!-- GetVersionAsync -->
+                <div class="api-method" id="GetVersionAsync">
+                    <h3>GetVersionAsync(string versionId)</h3>
+                    <div class="method-signature">Returns: Task&lt;ModrinthVersion&gt;</div>
+                    <p>Get detailed information about a specific version.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var version = await modrinth.GetVersionAsync(versions[0].Id);
+Console.WriteLine($"Version: {version.Name} - {version.Changelog}");</code></pre>
+                </div>
+
+                <!-- GetVersionFilesAsync -->
+                <div class="api-method" id="GetVersionFilesAsync">
+                    <h3>GetVersionFilesAsync(string versionId)</h3>
+                    <div class="method-signature">Returns: Task&lt;List&lt;ModrinthFile&gt;&gt;</div>
+                    <p>Get all files for a specific version.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var files = await modrinth.GetVersionFilesAsync(version.Id);
+foreach (var file in files)
+{
+    Console.WriteLine($"File: {file.Filename} ({file.Size} bytes)");
+}</code></pre>
+                </div>
+
+                <!-- DownloadFileAsync -->
+                <div class="api-method" id="DownloadFileAsync">
+                    <h3>DownloadFileAsync(string url, string filePath)</h3>
+                    <div class="method-signature">Returns: Task</div>
+                    <p>Download a file from a URL to a local path.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>await modrinth.DownloadFileAsync(files[0].Url, @"C:\\Downloads\\" + files[0].Filename);</code></pre>
+                </div>
+
+                <!-- GetUserAsync -->
+                <div class="api-method" id="GetUserAsync">
+                    <h3>GetUserAsync(string idOrUsername)</h3>
+                    <div class="method-signature">Returns: Task&lt;User&gt;</div>
+                    <p>Get information about a Modrinth user by ID or username.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var user = await modrinth.GetUserAsync("johndoe");
+Console.WriteLine($"User: {user.Username} ({user.Id})");</code></pre>
+                </div>
+
+                <!-- GetTeamAsync -->
+                <div class="api-method" id="GetTeamAsync">
+                    <h3>GetTeamAsync(string teamId)</h3>
+                    <div class="method-signature">Returns: Task&lt;Team&gt;</div>
+                    <p>Get information about a team by ID.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var team = await modrinth.GetTeamAsync("teamid");
+Console.WriteLine($"Team: {team.Name}");</code></pre>
+                </div>
+
+                <!-- GetProjectDependenciesAsync -->
+                <div class="api-method" id="GetProjectDependenciesAsync">
+                    <h3>GetProjectDependenciesAsync(string projectId)</h3>
+                    <div class="method-signature">Returns: Task&lt;List&lt;Dependency&gt;&gt;</div>
+                    <p>Get all dependencies for a project.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>var dependencies = await modrinth.GetProjectDependenciesAsync("sodium");
+foreach (var dep in dependencies)
+{
+    Console.WriteLine($"Depends on: {dep.ProjectId} ({dep.DependencyType})");
+}</code></pre>
+                </div>
+
+                <!-- Helper Methods -->
+                <div class="api-method" id="HelperMethods">
+                    <h3>Helper Methods for Random Projects</h3>
+                    <div class="method-signature">Convenience methods for specific project types</div>
+                    <p>Specialized methods for getting random projects of specific types.</p>
+                    
+                    <h4>Available Methods</h4>
+                    <ul>
+                        <li><code>GetRandomModsAsync(int count)</code> - Get random mods</li>
+                        <li><code>GetRandomShadersAsync(int count)</code> - Get random shaders</li>
+                        <li><code>GetRandomResourcePacksAsync(int count)</code> - Get random resource packs</li>
+                        <li><code>GetRandomModpacksAsync(int count)</code> - Get random modpacks</li>
+                    </ul>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>// Get specific types of random projects
+var randomMods = await modrinth.GetRandomModsAsync(10);
+var randomShaders = await modrinth.GetRandomShadersAsync(5);
+var randomResourcePacks = await modrinth.GetRandomResourcePacksAsync(8);
+var randomModpacks = await modrinth.GetRandomModpacksAsync(3);
+
+// Display results
+Console.WriteLine("Random Mods:");
+foreach (var mod in randomMods)
+{
+    Console.WriteLine($"  - {mod.Title} ({mod.Downloads:N0} downloads)");
+}
+
+Console.WriteLine("\nRandom Shaders:");
+foreach (var shader in randomShaders)
+{
+    Console.WriteLine($"  - {shader.Title} ({shader.Downloads:N0} downloads)");
+}</code></pre>
+                </div>
+
+                <!-- Error Handling -->
+                <div class="api-method" id="ErrorHandling">
+                    <h3>Error Handling</h3>
+                    <div class="method-signature">ModrinthApiException handling</div>
+                    <p>All methods throw <code>ModrinthApiException</code> on API errors, which includes the HTTP status and any error message from Modrinth.</p>
+                    
+                    <h4>Example Usage</h4>
+                    <pre><code>try
+{
+    var project = await modrinth.GetProjectAsync("nonexistent_project");
+}
+catch (ModrinthApiException ex)
+{
+    Console.WriteLine($"API Error: {ex.StatusCode} - {ex.ApiError}");
+}</code></pre>
+                </div>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- Examples Section -->
+            <section id="examples">
+                <h2>Complete Examples</h2>
+                
+                <h3>Complete Workflow Example</h3>
+                <p>A typical workflow showing how to search, get project details, download files, and handle errors:</p>
+                <pre><code>using ModrinthSharp;
+using System;
+using System.Threading.Tasks;
+
+class Program
+{
+    static async Task Main()
+    {
+        var modrinth = new ModrinthSharp();
+        
+        try
+        {
+            // Search for projects
+            var results = await modrinth.SearchProjectsAsync("sodium");
+            Console.WriteLine($"Found {results.Hits.Count} results for 'sodium'");
+            
+            // Get detailed project info
+            var project = await modrinth.GetProjectAsync(results.Hits[0].Slug);
+            Console.WriteLine($"\nProject: {project.Title}");
+            Console.WriteLine($"Description: {project.Description}");
+            Console.WriteLine($"Downloads: {project.Downloads:N0}");
+            
+            // Get project versions
+            var versions = await modrinth.GetProjectVersionsAsync(project.Id);
+            Console.WriteLine($"\nFound {versions.Count} versions");
+            
+            // Get latest version details
+            var version = await modrinth.GetVersionAsync(versions[0].Id);
+            Console.WriteLine($"Latest version: {version.Name} ({version.VersionNumber})");
+            
+            // Get files for this version
+            var files = await modrinth.GetVersionFilesAsync(version.Id);
+            Console.WriteLine($"Version has {files.Count} files");
+            
+            // Download the first file
+            if (files.Count > 0)
+            {
+                var file = files[0];
+                var downloadPath = @"C:\\Downloads\\" + file.Filename;
+                await modrinth.DownloadFileAsync(file.Url, downloadPath);
+                Console.WriteLine($"Downloaded {file.Filename} to {downloadPath}");
+            }
+        }
+        catch (ModrinthApiException ex)
+        {
+            Console.WriteLine($"API Error: {ex.StatusCode} - {ex.ApiError}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"General Error: {ex.Message}");
+        }
+    }
+}
+</code></pre>
+
+                <h3>Advanced Search Example</h3>
+                <p>Demonstrate advanced search capabilities with filters:</p>
+                <pre><code>using ModrinthSharp;
+using System;
+using System.Threading.Tasks;
+
+class ModSearcher
+{
+    private readonly ModrinthSharp _modrinth;
+    
+    public ModSearcher()
+    {
+        _modrinth = new ModrinthSharp();
+    }
+    
+    public async Task FindOptimizationMods()
+    {
+        // Search for performance/optimization mods for Fabric 1.20.1
+        var results = await _modrinth.SearchProjectsAdvancedAsync(
+            query: "optimization performance",
+            categories: new[] { "optimization", "utility" },
+            loaders: new[] { "fabric" },
+            gameVersions: new[] { "1.20.1" }
+        );
+        
+        Console.WriteLine($"Found {results.Hits.Count} optimization mods for Fabric 1.20.1:");
+        
+        foreach (var project in results.Hits.Take(10))
+        {
+            Console.WriteLine($"\n{project.Title}");
+            Console.WriteLine($"  Author: {project.Author}");
+            Console.WriteLine($"  Downloads: {project.Downloads:N0}");
+            Console.WriteLine($"  Description: {project.Description?.Substring(0, Math.Min(100, project.Description.Length ?? 0))}...");
+            Console.WriteLine($"  Categories: {string.Join(", ", project.Categories)}");
+        }
+    }
+    
+    public async Task ExploreRandomContent()
+    {
+        Console.WriteLine("=== Random Modrinth Content ===\n");
+        
+        // Get random mods
+        var randomMods = await _modrinth.GetRandomModsAsync(5);
+        Console.WriteLine("Random Mods:");
+        foreach (var mod in randomMods)
+        {
+            Console.WriteLine($"  - {mod.Title} ({mod.Downloads:N0} downloads)");
+        }
+        
+        // Get random shaders
+        var randomShaders = await _modrinth.GetRandomShadersAsync(3);
+        Console.WriteLine("\nRandom Shaders:");
+        foreach (var shader in randomShaders)
+        {
+            Console.WriteLine($"  - {shader.Title} ({shader.Downloads:N0} downloads)");
+        }
+        
+        // Get random resource packs
+        var randomResourcePacks = await _modrinth.GetRandomResourcePacksAsync(3);
+        Console.WriteLine("\nRandom Resource Packs:");
+        foreach (var pack in randomResourcePacks)
+        {
+            Console.WriteLine($"  - {pack.Title} ({pack.Downloads:N0} downloads)");
+        }
+        
+        // Get random modpacks
+        var randomModpacks = await _modrinth.GetRandomModpacksAsync(2);
+        Console.WriteLine("\nRandom Modpacks:");
+        foreach (var modpack in randomModpacks)
+        {
+            Console.WriteLine($"  - {modpack.Title} ({modpack.Downloads:N0} downloads)");
+        }
+    }
+}
+
+// Usage
+class Program
+{
+    static async Task Main()
+    {
+        var searcher = new ModSearcher();
+        
+        await searcher.FindOptimizationMods();
+        Console.WriteLine("\n" + new string('=', 50) + "\n");
+        await searcher.ExploreRandomContent();
+    }
+}
+</code></pre>
+
+                <h3>User and Team Analysis</h3>
+                <p>Example showing how to analyze users, teams, and project relationships:</p>
+                <pre><code>using ModrinthSharp;
+using System;
+using System.Threading.Tasks;
+using System.Linq;
+
+class UserAnalyzer
+{
+    private readonly ModrinthSharp _modrinth;
+    
+    public UserAnalyzer()
+    {
+        _modrinth = new ModrinthSharp();
+    }
+    
+    public async Task AnalyzeUser(string username)
+    {
+        try
+        {
+            // Get user info
+            var user = await _modrinth.GetUserAsync(username);
+            Console.WriteLine($"=== User Analysis: {user.Username} ===");
+            Console.WriteLine($"Display Name: {user.Name ?? "N/A"}");
+            Console.WriteLine($"Bio: {user.Bio ?? "No bio"}");
+            Console.WriteLine($"Joined: {user.Created:yyyy-MM-dd}");
+            Console.WriteLine($"Role: {user.Role}");
+            
+            // Note: In a real implementation, you'd need additional API calls
+            // to get user's projects, as the base API doesn't include this
+            Console.WriteLine("\nTo get user's projects, you would need to:");
+            Console.WriteLine("1. Use the search API with author filter");
+            Console.WriteLine("2. Or use dedicated user projects endpoint if available");
+            
+        }
+        catch (ModrinthApiException ex)
+        {
+            Console.WriteLine($"Failed to get user info: {ex.StatusCode} - {ex.ApiError}");
+        }
+    }
+    
+    public async Task AnalyzeTeam(string teamId)
+    {
+        try
+        {
+            var team = await _modrinth.GetTeamAsync(teamId);
+            Console.WriteLine($"=== Team Analysis: {team.Name} ===");
+            Console.WriteLine($"Team ID: {team.Id}");
+            
+            // Additional team analysis would require more API endpoints
+            Console.WriteLine("\nFor complete team analysis, you would typically:");
+            Console.WriteLine("1. Get team members");
+            Console.WriteLine("2. Get team's projects");
+            Console.WriteLine("3. Analyze team activity and contributions");
+            
+        }
+        catch (ModrinthApiException ex)
+        {
+            Console.WriteLine($"Failed to get team info: {ex.StatusCode} - {ex.ApiError}");
+        }
+    }
+}
+
+// Usage
+class Program
+{
+    static async Task Main()
+    {
+        var analyzer = new UserAnalyzer();
+        
+        // Analyze a specific user
+        await analyzer.AnalyzeUser("jellysquid3");
+        
+        Console.WriteLine("\n" + new string('-', 40) + "\n");
+        
+        // For team analysis, you'd need a valid team ID
+        // await analyzer.AnalyzeTeam("some-team-id");
+    }
+}
+</code></pre>
+
+                <h3>Dependency Analysis Example</h3>
+                <p>Show how to analyze project dependencies and relationships:</p>
+                <pre><code>using ModrinthSharp;
+using System;
+using System.Threading.Tasks;
+using System.Linq;
+
+class DependencyAnalyzer
+{
+    private readonly ModrinthSharp _modrinth;
+    
+    public DependencyAnalyzer()
+    {
+        _modrinth = new ModrinthSharp();
+    }
+    
+    public async Task AnalyzeProjectDependencies(string projectSlug)
+    {
+        try
+        {
+            // Get project info
+            var project = await _modrinth.GetProjectAsync(projectSlug);
+            Console.WriteLine($"=== Dependency Analysis: {project.Title} ===");
+            
+            // Get dependencies
+            var dependencies = await _modrinth.GetProjectDependenciesAsync(project.Id);
+            
+            if (dependencies.Count > 0)
+            {
+                Console.WriteLine($"\nThis project has {dependencies.Count} dependencies:");
+                
+                var requiredDeps = dependencies.Where(d => d.DependencyType == "required").ToList();
+                var optionalDeps = dependencies.Where(d => d.DependencyType == "optional").ToList();
+                var incompatibleDeps = dependencies.Where(d => d.DependencyType == "incompatible").ToList();
+                
+                if (requiredDeps.Count > 0)
+                {
+                    Console.WriteLine($"\nRequired Dependencies ({requiredDeps.Count}):");
+                    foreach (var dep in requiredDeps)
+                    {
+                        Console.WriteLine($"  - {dep.ProjectId}");
+                        
+                        // Optionally get details about the dependency
+                        try
+                        {
+                            var depProject = await _modrinth.GetProjectAsync(dep.ProjectId);
+                            Console.WriteLine($"    └─ {depProject.Title} ({depProject.Downloads:N0} downloads)");
+                        }
+                        catch
+                        {
+                            Console.WriteLine($"    └─ (Could not fetch details)");
+                        }
+                    }
+                }
+                
+                if (optionalDeps.Count > 0)
+                {
+                    Console.WriteLine($"\nOptional Dependencies ({optionalDeps.Count}):");
+                    foreach (var dep in optionalDeps)
+                    {
+                        Console.WriteLine($"  - {dep.ProjectId}");
+                    }
+                }
+                
+                if (incompatibleDeps.Count > 0)
+                {
+                    Console.WriteLine($"\nIncompatible With ({incompatibleDeps.Count}):");
+                    foreach (var dep in incompatibleDeps)
+                    {
+                        Console.WriteLine($"  - {dep.ProjectId}");
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nThis project has no explicit dependencies.");
+            }
+            
+        }
+        catch (ModrinthApiException ex)
+        {
+            Console.WriteLine($"Error analyzing dependencies: {ex.StatusCode} - {ex.ApiError}");
+        }
+    }
+}
+
+// Usage
+class Program
+{
+    static async Task Main()
+    {
+        var analyzer = new DependencyAnalyzer();
+        
+        // Analyze dependencies for popular mods
+        string[] projectsToAnalyze = { "sodium", "iris", "lithium", "phosphor" };
+        
+        foreach (var project in projectsToAnalyze)
+        {
+            await analyzer.AnalyzeProjectDependencies(project);
+            Console.WriteLine("\n" + new string('=', 60) + "\n");
+        }
+    }
+}
+</code></pre>
+            </section>
+
+            <div class="section-divider"></div>
+
+            <!-- License -->
+            <section id="license" class="license">
+                <h2>License</h2>
+                <p>
+                    ModrinthSharp is released under the MIT License. You are free to use, modify, and distribute 
+                    this software in both commercial and non-commercial projects.
+                </p>
+                <p>
+                    © 2024 MatriX Development. All rights reserved.
+                </p>
+            </section>
+        </main>
     </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i data-lucide="arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="scripts/main.js"></script>
+    <script src="scripts/docs.js"></script>
+</body>
     <div class="modrinth-layout">
         <aside class="modrinth-sidebar" id="sidebarNav" aria-label="Documentation Sidebar" tabindex="0">
             <div class="sidebar-resize-handle" id="sidebarResizeHandle" tabindex="0" aria-label="Resize sidebar" role="separator"></div>
@@ -478,13 +1299,76 @@ class Program
             <div class="section-divider"></div>
             <div class="section" id="modelref">
                 <h2>Model Reference</h2>
+                <p>ModrinthSharp uses strongly-typed models for all API responses. Here are the main model types:</p>
+                
+                <h3 id="modrinthproject">ModrinthProject</h3>
+                <p>Contains all project metadata including title, description, downloads, categories, and more.</p>
                 <ul>
-                    <li><b>ModrinthProject</b>: All project metadata (title, description, downloads, categories, etc.)</li>
-                    <li><b>ModrinthVersion</b>: Version info (name, changelog, supported game versions, loaders, etc.)</li>
-                    <li><b>ModrinthFile</b>: File info (filename, size, URL, hashes, etc.)</li>
-                    <li><b>User</b>, <b>Team</b>: User/team info</li>
-                    <li><b>Dependency</b>: Project dependencies</li>
-                    <li><b>SearchResult</b>: Search results (list of projects, total hits, etc.)</li>
+                    <li><code>Id</code> - Unique project identifier</li>
+                    <li><code>Title</code> - Display name of the project</li>
+                    <li><code>Description</code> - Short description</li>
+                    <li><code>Downloads</code> - Total download count</li>
+                    <li><code>Categories</code> - Project categories</li>
+                    <li><code>ProjectType</code> - Type (mod, modpack, resourcepack, shader)</li>
+                    <li><code>Slug</code> - URL-friendly identifier</li>
+                </ul>
+
+                <h3 id="modrinthversion">ModrinthVersion</h3>
+                <p>Version information including name, changelog, supported game versions, and loaders.</p>
+                <ul>
+                    <li><code>Id</code> - Unique version identifier</li>
+                    <li><code>Name</code> - Version display name</li>
+                    <li><code>VersionNumber</code> - Version number/tag</li>
+                    <li><code>Changelog</code> - Version changelog</li>
+                    <li><code>GameVersions</code> - Supported Minecraft versions</li>
+                    <li><code>Loaders</code> - Supported mod loaders</li>
+                    <li><code>Files</code> - Associated files</li>
+                </ul>
+
+                <h3 id="modrinthfile">ModrinthFile</h3>
+                <p>File information including filename, size, URL, and hashes.</p>
+                <ul>
+                    <li><code>Filename</code> - Name of the file</li>
+                    <li><code>Size</code> - File size in bytes</li>
+                    <li><code>Url</code> - Download URL</li>
+                    <li><code>Hashes</code> - File hashes for verification</li>
+                    <li><code>Primary</code> - Whether this is the primary file</li>
+                </ul>
+
+                <h3 id="user">User</h3>
+                <p>User account information.</p>
+                <ul>
+                    <li><code>Id</code> - Unique user identifier</li>
+                    <li><code>Username</code> - User's username</li>
+                    <li><code>Name</code> - Display name</li>
+                    <li><code>Bio</code> - User biography</li>
+                    <li><code>Created</code> - Account creation date</li>
+                    <li><code>Role</code> - User role/permissions</li>
+                </ul>
+
+                <h3 id="team">Team</h3>
+                <p>Team information for collaborative projects.</p>
+                <ul>
+                    <li><code>Id</code> - Unique team identifier</li>
+                    <li><code>Name</code> - Team name</li>
+                    <li><code>Members</code> - Team member list</li>
+                </ul>
+
+                <h3 id="dependency">Dependency</h3>
+                <p>Project dependency relationships.</p>
+                <ul>
+                    <li><code>ProjectId</code> - ID of the dependency project</li>
+                    <li><code>DependencyType</code> - Type of dependency (required, optional, incompatible)</li>
+                    <li><code>VersionId</code> - Specific version requirement (if any)</li>
+                </ul>
+
+                <h3 id="searchresult">SearchResult</h3>
+                <p>Search results container with projects and metadata.</p>
+                <ul>
+                    <li><code>Hits</code> - List of matching projects</li>
+                    <li><code>TotalHits</code> - Total number of matching projects</li>
+                    <li><code>Offset</code> - Current result offset</li>
+                    <li><code>Limit</code> - Results per page</li>
                 </ul>
             </div>
             <div class="section-divider"></div>
