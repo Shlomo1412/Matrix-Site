@@ -3,99 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Download Modrix - MatriX Tools</title>
-    <meta name="description" content="Download Modrix.exe - The all-in-one Minecraft mod manager and utility.">
+    <title>Download Modrix - MatriX Development Tools</title>
+    <meta name="description" content="Download Modrix - A powerful Minecraft mod manager built with cutting-edge technology. Free, open-source, and feature-rich.">
+    <meta name="keywords" content="Modrix, Minecraft, Mod Manager, Download, MatriX, Free Software">
+    <meta name="author" content="MatriX Team">
     <meta name="theme-color" content="#3b82f6">
     <meta name="color-scheme" content="light dark">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="Icons/Modrix.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.css">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="styles/main.css">
-    <link rel="stylesheet" href="styles/docs.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
+    
     <style>
-        body {
-            background: linear-gradient(120deg, #10131a 70%, #0078d7 200%);
-            color: #eaf6ff;
-            font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-            margin: 0;
-            min-height: 100vh;
+        /* Custom styles for download page */
+        .download-hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            padding: 120px 0 80px 0;
+            position: relative;
+            overflow: hidden;
         }
-        .download-header {
+        
+        .download-hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 40% at 60% 30%, #3b82f644 0%, transparent 80%),
+                        radial-gradient(ellipse 40% 30% at 30% 70%, #06b6d422 0%, transparent 80%);
+            z-index: 0;
+        }
+        
+        .download-hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
             text-align: center;
-            padding: 64px 0 24px 0;
-            background: linear-gradient(120deg, #232323 60%, #0078d7 120%);
-            box-shadow: 0 4px 32px #0078d733;
-            border-bottom: 1.5px solid #23293a;
         }
-        .download-header img {
-            width: 96px;
-            height: 96px;
-            border-radius: 18px;
-            box-shadow: 0 4px 32px #0078d744;
-            margin-bottom: 18px;
+        
+        .download-app-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem auto;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.3);
+            animation: float 6s ease-in-out infinite;
         }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
         .download-title {
-            font-size: 2.5em;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 8px;
-            letter-spacing: 2px;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #94a3b8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        .download-desc {
-            color: #b0e0ff;
-            font-size: 1.18em;
-            margin-bottom: 18px;
-        }
-        .download-btn {
-            display: inline-block;
-            background: linear-gradient(90deg, #0078d7 60%, #00e0ff 100%);
-            color: #fff;
-            font-size: 1.25em;
-            font-weight: 700;
-            padding: 18px 48px;
-            border: none;
-            border-radius: 12px;
-            box-shadow: 0 2px 16px #0078d744;
-            text-decoration: none;
-            margin-top: 18px;
-            transition: background 0.18s, box-shadow 0.18s, transform 0.12s;
-        }
-        .download-btn:hover {
-            background: linear-gradient(90deg, #00e0ff 0%, #0078d7 100%);
-            color: #fff;
-            box-shadow: 0 4px 32px #00e0ff44;
-            transform: translateY(-2px) scale(1.03);
-        }
-        .download-info {
+        
+        .download-subtitle {
+            font-size: 1.3rem;
+            color: #94a3b8;
+            margin-bottom: 3rem;
             max-width: 600px;
-            margin: 36px auto 0 auto;
-            background: #181c24cc;
-            border-radius: 18px;
-            box-shadow: 0 8px 40px #0078d722;
-            padding: 32px 32px 24px 32px;
-            font-size: 1.13em;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .download-info h2 {
-            color: #7ecbff;
-            font-size: 1.35em;
-            margin-top: 0;
+        
+        .download-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: white;
+            padding: 18px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+            border: none;
+            cursor: pointer;
         }
-        .download-info ul {
-            margin-left: 18px;
+        
+        .download-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
         }
-        .download-footer {
+        
+        .download-info {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .download-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
             text-align: center;
-            color: #b0e0ff;
-            font-size: 1.08em;
-            margin: 48px 0 0 0;
         }
-        @media (max-width: 700px) {
-            .download-header { padding: 32px 0 12px 0; }
-            .download-title { font-size: 1.5em; }
-            .download-info { padding: 12px; }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #3b82f6;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+        
+        .features-section {
+            padding: 80px 0;
+            background: #0f172a;
+        }
+        
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .features-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 60px rgba(59, 130, 246, 0.1);
+        }
+        
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-description {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+        
+        .system-requirements {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        
+        .requirements-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+        
+        .requirements-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 3rem;
+        }
+        
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .requirement-item {
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .requirement-label {
+            font-weight: 600;
+            color: #3b82f6;
+            margin-bottom: 0.5rem;
+        }
+        
+        .requirement-value {
+            color: #ffffff;
+            font-size: 1.1rem;
+        }
+        
+        .download-cta {
+            padding: 80px 0;
+            background: #0f172a;
+            text-align: center;
+        }
+        
+        .cta-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            font-size: 1.2rem;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+        }
+        
+        .security-info {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(30, 41, 59, 0.3);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 12px;
+        }
+        
+        .security-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            color: #22c55e;
+            margin-bottom: 1rem;
+        }
+        
+        .security-text {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .download-title {
+                font-size: 2.5rem;
+            }
+            
+            .download-stats {
+                gap: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -103,14 +317,15 @@
                 <span class="nav-title">MatriX</span>
                 <span class="nav-version">v2.0</span>
             </div>
+            
             <div class="nav-links">
                 <a href="index.html" class="nav-link">Home</a>
                 <a href="index.html#products" class="nav-link">Products</a>
                 <a href="drmod-docs.html" class="nav-link">DrMod Docs</a>
                 <a href="modrinthsharp-docs.html" class="nav-link">ModrinthSharp Docs</a>
-                <a href="modrix-download.html" class="nav-link active">Download Modrix</a>
                 <a href="index.html#community" class="nav-link">Community</a>
             </div>
+            
             <div class="nav-actions">
                 <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                     <i data-lucide="sun" class="theme-icon light-icon"></i>
@@ -125,23 +340,235 @@
             </div>
         </div>
     </nav>
-    <header class="download-header" style="min-height: 70vh; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-        <img src="Icons/Modrix.png" alt="Modrix Icon">
-        <div class="download-title">Download Modrix</div>
-        <a class="download-btn" href="exes/Modrix.exe" download>
-            <i data-lucide="download"></i> Download Modrix.exe
-        </a>
-        <div style="margin-top:18px;color:#b0e0ff;font-size:1.08em;">
-            Version: Latest &nbsp;|&nbsp; Size: ~7 MB &nbsp;|&nbsp; Windows 10/11
+
+    <!-- Download Hero Section -->
+    <section class="download-hero">
+        <div class="download-hero-content">
+            <img src="Icons/Modrix.png" alt="Modrix" class="download-app-icon">
+            <h1 class="download-title">Download Modrix</h1>
+            <p class="download-subtitle">
+                A powerful Minecraft mod manager with intelligent automation and seamless integration. 
+                Currently in development (~80MB).
+            </p>
+            
+            <a href="exes/Modrix.exe" class="download-button" download="Modrix.exe">
+                <i data-lucide="download"></i>
+                Download Development Build
+            </a>
+            
+            <!-- Development Warning Banner -->
+            <div style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 1.5rem; border-radius: 12px; margin: 2rem auto; max-width: 600px; border: 2px solid #f59e0b;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem;">
+                    <i data-lucide="alert-triangle" style="width: 24px; height: 24px;"></i>
+                    <strong style="font-size: 1.2rem;">DEVELOPMENT VERSION</strong>
+                    <i data-lucide="alert-triangle" style="width: 24px; height: 24px;"></i>
+                </div>
+                <p style="margin: 0; text-align: center; font-weight: 500;">
+                    ⚠️ This is an early development build (~42% functional). Expect bugs, missing features, and instability. 
+                    Use at your own risk and do not use for important modded instances.
+                </p>
+            </div>
+            
+            <div class="download-info">
+                <p>🚧 Development Version • ~42% Functional • Windows x64</p>
+                <p>File size: ~80 MB • Early Access Preview</p>
+            </div>
+            
+            <div class="download-stats">
+                <div class="stat-item">
+                    <span class="stat-number">BETA</span>
+                    <div class="stat-label">Status</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">42%</span>
+                    <div class="stat-label">Complete</div>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">Active</span>
+                    <div class="stat-label">Development</div>
+                </div>
+            </div>
         </div>
-        <div style="margin-top:32px;color:#b0e0ff;font-size:1.13em;max-width:600px;">
+    </section>
+
+    <!-- System Requirements -->
+    <section class="system-requirements">
+        <div class="requirements-container">
+            <h2 class="requirements-title">System Requirements</h2>
+            <div class="requirements-grid">
+                <div class="requirement-item">
+                    <div class="requirement-label">Operating System</div>
+                    <div class="requirement-value">Windows 10/11 x64</div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="requirement-label">Runtime</div>
+                    <div class="requirement-value">.NET 8.0 Runtime</div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="requirement-label">Memory</div>
+                    <div class="requirement-value">4 GB RAM minimum</div>
+                </div>
+                
+                <div class="requirement-item">
+                    <div class="requirement-label">Storage</div>
+                    <div class="requirement-value">100 MB free space</div>
+                </div>
+            </div>
         </div>
-    </header>
-    <div class="download-footer">
-        <span>Need help? <a href="index.html#community" style="color:#7ecbff;">Join our Discord or community</a></span><br>
-        <span>© 2025 MatriX Development. All rights reserved.</span>
-    </div>
+    </section>
+
+    <!-- Download CTA -->
+    <section class="download-cta">
+        <div class="cta-container">
+            <h2 class="cta-title">Try the Development Build</h2>
+            <p class="cta-description">
+                Help us test and improve Modrix by trying the early development version. 
+                Your feedback is crucial for making it better!
+            </p>
+            
+            <a href="exes/Modrix.exe" class="download-button" download="Modrix.exe">
+                <i data-lucide="download"></i>
+                Download Beta Build (42% Complete)
+            </a>
+            
+            <div class="security-info">
+                <div class="security-title">
+                    <i data-lucide="alert-triangle"></i>
+                    Development Build Warning
+                </div>
+                <p class="security-text">
+                    This is an early development build (~42% functional) provided for testing purposes. 
+                    While the file is virus-free and safe to download, the software may be unstable, 
+                    contain bugs, or have missing features. Use with caution and backup your data.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-brand">
+                        <img src="Icons/MatriX.png" alt="MatriX" class="footer-logo">
+                        <span class="footer-title">MatriX</span>
+                    </div>
+                    <p class="footer-description">
+                        Empowering Minecraft modding with cutting-edge development tools 
+                        and intelligent automation systems.
+                    </p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-heading">Products</h4>
+                    <ul class="footer-links">
+                        <li><a href="modrix-download.html">Modrix</a></li>
+                        <li><a href="drmod-docs.html">DrMod</a></li>
+                        <li><a href="modrinthsharp-docs.html">ModrinthSharp</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-heading">Resources</h4>
+                    <ul class="footer-links">
+                        <li><a href="drmod-docs.html">Documentation</a></li>
+                        <li><a href="https://github.com/Shlomo1412" target="_blank">GitHub</a></li>
+                        <li><a href="index.html#community">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4 class="footer-heading">Connect</h4>
+                    <div class="footer-social">
+                        <a href="https://github.com/Shlomo1412" target="_blank" aria-label="GitHub">
+                            <i data-lucide="github"></i>
+                        </a>
+                        <a href="#" target="_blank" aria-label="Discord">
+                            <i data-lucide="message-circle"></i>
+                        </a>
+                        <a href="#" target="_blank" aria-label="Twitter">
+                            <i data-lucide="twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 MatriX Development. All rights reserved.</p>
+                <div class="footer-bottom-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="scripts/main.js"></script>
+    
+    <script>
+        // Download tracking and analytics
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Lucide icons
+            lucide.createIcons();
+            
+            // Track download clicks
+            const downloadButtons = document.querySelectorAll('a[href="exes/Modrix.exe"]');
+            downloadButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Analytics tracking could go here
+                    console.log('Modrix download initiated');
+                    
+                    // Show download started notification
+                    showDownloadNotification();
+                });
+            });
+            
+            function showDownloadNotification() {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: linear-gradient(135deg, #22c55e, #16a34a);
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3);
+                    z-index: 10000;
+                    font-weight: 500;
+                    transform: translateX(100%);
+                    transition: transform 0.3s ease;
+                `;
+                notification.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <i data-lucide="download" style="width: 18px; height: 18px;"></i>
+                        Download started successfully!
+                    </div>
+                `;
+                
+                document.body.appendChild(notification);
+                lucide.createIcons();
+                
+                // Animate in
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(0)';
+                }, 100);
+                
+                // Remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.transform = 'translateX(100%)';
+                    setTimeout(() => {
+                        document.body.removeChild(notification);
+                    }, 300);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>
